@@ -1,0 +1,47 @@
+/* Bootstrap version 5.2.3 */
+
+// Required
+@import "../../node_modules/bootstrap/scss/functions";
+
+// Default variable overrides
+// $primary: hsl(0, 0%, 0%);
+$primary: hsl(230, 70%, 55%);
+$secondary: hsl(230, 20%, 70%);
+// $secondary-dark: hsl(230, 30%, 60%);
+
+// Required
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/root";
+
+// Utility classes
+.btn-unstyled {
+  border: none;
+  background-color: inherit;
+}
+
+.table-primary {
+    --bs-table-bg: #{$secondary};
+    color: black;
+}
+
+.table-dark {
+    --bs-table-bg: #212529;
+    --bs-table-striped-bg: #2c3034;
+    --bs-table-striped-color: #fff;
+    --bs-table-active-bg: #373b3e;
+    --bs-table-active-color: #fff;
+    --bs-table-hover-bg: #{$secondary};
+    --bs-table-hover-color: black !important;
+    color: #fff;
+    border: 1px solid #{$secondary};
+}
+
+.table-dark tr:hover a {
+  color: black;
+}
+
+.nav-link {
+  font-weight: 500;
+}
