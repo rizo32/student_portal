@@ -10,6 +10,7 @@ class Etudiant extends Model
     use HasFactory;
     
     protected $fillable = [
+        'id',
         'nom',
         'adresse',
         'phone',
@@ -17,4 +18,9 @@ class Etudiant extends Model
         'date_naissance',
         'ville_id'
     ];
+
+    // Relationship to Ville
+    public function ville() {
+      return $this->belongsTo(Ville::class, 'ville_id');
+    }
 }

@@ -20,7 +20,7 @@ class CreateEtudiantsTable extends Migration
             $table->string('phone', 20);
             $table->string('email', 50);
             $table->date('date_naissance', 50);
-            $table->integer('ville_id');
+            $table->foreignId('ville_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
