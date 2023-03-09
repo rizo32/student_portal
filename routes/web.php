@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 use App\Http\Controllers\EtudiantController;
 
@@ -25,10 +28,10 @@ Route::get('etudiant/{etudiant}', [EtudiantController::class, 'show'])->name('et
 
 Route::get('etudiant-create', [EtudiantController::class, 'create'])->name('etudiant.create');
 
-// Route::post('etudiant-create', [EtudiantController::class, 'store'])->name('etudiant.store'); // pas obligatoire parce qu'on redirige vers une autre vue 
+Route::post('etudiant-create', [EtudiantController::class, 'store'])->name('etudiant.store');
 
-// Route::get('etudiant-edit/{etudiantPost}', [EtudiantController::class, 'edit'])->name('etudiant.edit');
+Route::get('etudiant-edit/{etudiant}', [EtudiantController::class, 'edit'])->name('etudiant.edit');
 
-// Route::put('etudiant-edit/{etudiantPost}', [EtudiantController::class, 'update'])->name('etudiant.update');
+Route::put('etudiant-edit/{etudiant}', [EtudiantController::class, 'update'])->name('etudiant.update');
 
-// Route::delete('etudiant-edit/{etudiantPost}', [EtudiantController::class, 'destroy'])->name('etudiant.delete');
+Route::delete('etudiant-edit/{etudiant}', [EtudiantController::class, 'destroy'])->name('etudiant.delete');
