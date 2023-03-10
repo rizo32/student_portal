@@ -45,3 +45,7 @@ $secondary: hsl(230, 20%, 70%);
 .nav-link {
   font-weight: 500;
 }
+
+.pagination a.bg-dark:hover {
+  background-color: #{$primary} !important;
+}

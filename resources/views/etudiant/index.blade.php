@@ -54,7 +54,7 @@
 
   </div>
   <div class="py-5">
-    {{ $etudiants }}
+    {{ $pagination->links('layouts.pagination') }}
 
   </div>
 @endsection

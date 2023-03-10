@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Etudiant;
 use App\Models\Ville;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 class EtudiantController extends Controller
 {
   /**
@@ -12,16 +14,25 @@ class EtudiantController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index() {
-    $etudiants = Etudiant::select()
-    
-    ->paginate(20);
 
-    // Define the icon HTML
+
+
+public function index(Request $request) {
+    $etudiants = Etudiant::paginate(20);
+
     $iconHtml = '<i class="fa-solid fa-xmark text-danger"></i>';
 
-    return view('etudiant.index', compact('etudiants'), ['etudiants' => $etudiants, 'icon' => $iconHtml]);
-  }
+    $currentPageItems = $etudiants->items();
+
+    $pagination = $etudiants->appends($request->query());
+
+    return view('etudiant.index', [
+        'etudiants' => $etudiants,
+        'icon' => $iconHtml,
+        'items' => $currentPageItems,
+        'pagination' => $pagination
+    ]);
+}
 
 
   /**
