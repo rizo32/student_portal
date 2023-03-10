@@ -6,10 +6,10 @@
   <div class="col-md-8">
     <form action="{{ route('etudiant.store') }}" method="post">
       @csrf
-      <div class="card-header">
-        Vos informations
+      <div class="card-header text-secondary fst-italic text-center">
+        Veuillez saisir vos informations
       </div>
-      <div class="card-body">
+      <div class="text-light d-flex flex-column gap-3">
         <div class="control-grup col-12">
           <label for="nom">Nom</label>
           <input type="text" id="nom" name="nom" class="form-control">
@@ -34,16 +34,14 @@
           <label for="ville_id">Ville</label>
           <select id="ville_id" name="ville_id" class="form-control">
             @foreach ($villes as $ville)
-              <option value="{{ $ville->id }}" {{-- @if ($etudiant->ville_id == $ville->id) --}} {{-- selected
-                    @endif --}}>{{ $ville->nom }}</option>
+              <option value="{{ $ville->id }}">{{ $ville->nom }}</option>
             @endforeach
           </select>
         </div>
-      </div>
-      <div class="card-footer">
-        <input type="submit" class="btn btn-success">
-        <a href="{{ route('etudiant.index') }}" class="btn btn-sm btn-primary">Retourner</a>
-
+        <div class="d-flex justify-content-end gap-2">
+          <input type="submit" class="btn btn-primary" value="It's a go!">
+          <a href="{{ route('etudiant.index') }}" class="btn btn-secondary link-dark">Retour</a>
+        </div>
       </div>
     </form>
   </div>

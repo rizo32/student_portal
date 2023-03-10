@@ -33,7 +33,6 @@
                 class="text-decoration-none link-light">
                 @csrf
                 @method('delete')
-                {{-- <i class="fa-solid fa-xmark text-danger"><input type="submit" value=""></i> --}}
                 <button type="submit" class="btn-unstyled">
                   {!! $icon !!}
                 </button>
@@ -46,15 +45,8 @@
         @endforelse
       </tbody>
     </table>
-    <?php
-    
-    // <a href="{{ route('etudiant.create') }}" class="btn btn-success">
-    // </a>
-    ?>
-
   </div>
   <div class="py-5">
     {{ $pagination->links('layouts.pagination') }}
-
   </div>
 @endsection

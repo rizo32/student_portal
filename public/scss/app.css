@@ -1,4 +1,3 @@
-/* Bootstrap version 5.2.3 */
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -78,14 +77,29 @@
   color: black;
 }
 
+.btn-primary {
+  background-color: hsl(230, 70%, 55%);
+}
+
+.btn-primary:hover {
+  background-color: hsl(230, 75%, 45%);
+}
+
+.btn-secondary {
+  background-color: hsl(230, 20%, 70%);
+}
+
+.btn-secondary:hover {
+  background-color: hsl(230, 25%, 60%);
+  color: white;
+}
+
+.alert-warning {
+  background-color: hsl(230, 70%, 55%);
+}
+
 .table-dark {
-  --bs-table-bg: #212529;
-  --bs-table-striped-bg: #2c3034;
-  --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #373b3e;
-  --bs-table-active-color: #fff;
   --bs-table-hover-bg: hsl(230, 20%, 70%);
-  --bs-table-hover-color: black !important;
   color: #fff;
   border: 1px solid hsl(230, 20%, 70%);
 }
@@ -100,4 +114,13 @@
 
 .pagination a.bg-dark:hover {
   background-color: hsl(230, 70%, 55%) !important;
+}
+
+.pagination .page-link,
+.pagination .page-item.disabled .page-link {
+  border: 1px solid hsl(230, 20%, 70%);
+}
+
+main {
+  min-height: 85vh;
 }
