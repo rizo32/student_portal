@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             VilleTableSeeder::class,
+            UserTableSeeder::class,
             EtudiantTableSeeder::class,
         ]);
     }
@@ -21,6 +22,13 @@ class VilleTableSeeder extends Seeder
     public function run()
     {
         \App\Models\Ville::factory(15)->create();
+    }
+}
+class UserTableSeeder extends Seeder
+{
+    public function run()
+    {
+        \App\Models\User::factory(100)->create();
     }
 }
 
