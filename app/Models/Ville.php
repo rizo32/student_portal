@@ -15,7 +15,7 @@ class Ville extends Model
   ];
 
   // Relationship to Etudiant
-  public function etudiants() {
-    return $this->hasMany(Etudiant::class, 'etudiant_id');
+  public function etudiant() {
+    return $this->hasMany(Etudiant::class, 'user_id');
   }
 }
