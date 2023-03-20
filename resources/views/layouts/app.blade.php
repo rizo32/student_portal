@@ -30,10 +30,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navmenu">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a href="{{ route('etudiant.index') }}"
-                class="nav-link {{ request()->routeIs('etudiant.index') ? 'active' : '' }}">Nos étudiants</a></li>
-            <li class="nav-item"><a href="{{ route('etudiant.create') }}"
-                class="nav-link {{ request()->routeIs('etudiant.create') ? 'active' : '' }}">Admission</a></li>
+            <li class="nav-item">
+              <a href="{{ route('etudiant.index') }}"
+                class="nav-link {{ request()->routeIs('etudiant.index') ? 'active' : '' }}">Nos étudiants</a>
+            </li>
+            @if (!$auth)
+            <li class="nav-item">
+              <a href="{{ route('user.create') }}"
+                class="nav-link {{ request()->routeIs('user.create') ? 'active' : '' }}">Admission</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('login') }}"
+                class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}">Login</a>
+            </li>
+            @endif
           </ul>
         </div>
       </div>
