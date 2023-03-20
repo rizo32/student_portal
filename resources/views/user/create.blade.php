@@ -4,7 +4,7 @@
 @section('content')
 
   <div class="col-md-8">
-    <form action="{{ route('etudiant.store') }}" method="post">
+    <form action="{{ route('user.store') }}" method="post">
       @csrf
       <div class="card-header text-secondary fst-italic text-center">
         Veuillez saisir vos informations
@@ -25,6 +25,10 @@
         <div class="control-grup col-12">
           <label for="email">Courriel</label>
           <input type="email" id="email" name="email" class="form-control">
+        </div>
+        <div class="control-grup col-12">
+          <label for="email">Password</label>
+          <input type="password" id="password" name="password" class="form-control">
         </div>
         <div class="control-grup col-12">
           <label for="date_naissance">Date de naissance</label>

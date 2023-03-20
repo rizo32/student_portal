@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Etudiant;
+use App\Models\User;
 use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+
 class EtudiantController extends Controller
 {
   /**
@@ -17,8 +20,9 @@ class EtudiantController extends Controller
 
 
 
-public function index(Request $request) {
-    $etudiants = Etudiant::paginate(20);
+  public function index(Request $request)
+  {
+    $etudiants = Etudiant::with('user')->paginate(20);
 
     $iconHtml = '<i class="fa-solid fa-xmark text-danger"></i>';
 
@@ -27,42 +31,11 @@ public function index(Request $request) {
     $pagination = $etudiants->appends($request->query());
 
     return view('etudiant.index', [
-        'etudiants' => $etudiants,
-        'icon' => $iconHtml,
-        'items' => $currentPageItems,
-        'pagination' => $pagination
+      'etudiants' => $etudiants,
+      'icon' => $iconHtml,
+      'items' => $currentPageItems,
+      'pagination' => $pagination
     ]);
-}
-
-
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create() {
-    $villes = Ville::select()->get();
-    return view('etudiant.create', ['villes' => $villes]);
-  }
-
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(Request $request) {
-    $etudiant = Etudiant::create([
-      'nom' => $request->nom,
-      'email' => $request->email,
-      'ville_id' => $request->ville_id,
-      'adresse' => $request->adresse,
-      'date_naissance' => $request->date_naissance,
-      'phone' => $request->phone
-    ]);
-
-    // On évite d'y aller par dossier 'redirect('/blog/blog...') parce que Laravel fonctionne plus par route
-    return redirect(route('etudiant.show', $etudiant->id));
   }
 
   /**
@@ -71,14 +44,12 @@ public function index(Request $request) {
    * @param  \App\Models\BlogPost  $blogPost
    * @return \Illuminate\Http\Response
    */
-  public function show(Etudiant $etudiant) {
-    $etudiant = Etudiant::select('etudiants.nom as etudiant_nom', 'villes.nom as ville_nom', 'etudiants.id', 'adresse', 'phone', 'email', 'date_naissance')
-      ->leftJoin('villes', 'etudiants.ville_id', '=', 'villes.id')
-      ->where('etudiants.id', $etudiant->id)
-      ->get();
-    // return $etudiant;
+  public function show(Etudiant $etudiant)
+  {
+    $etudiant = Etudiant::with('ville', 'user')
+      ->findOrFail($etudiant->user_id);
     return view('etudiant.show', [
-      'etudiant' => $etudiant[0]
+      'etudiant' => $etudiant,
     ]);
   }
 
@@ -90,6 +61,8 @@ public function index(Request $request) {
    */
   public function edit(Etudiant $etudiant)
   {
+    $etudiant = Etudiant::with('ville', 'user')
+      ->findOrFail($etudiant['user_id']);
     $villes = Ville::select()->get();
     return view('etudiant.edit', ['etudiant' => $etudiant, 'villes' => $villes]);
   }
@@ -103,16 +76,18 @@ public function index(Request $request) {
    */
   public function update(Request $request, Etudiant $etudiant)
   {
+    $etudiant->user()->update([
+      'email' => $request->email
+    ]);
     $etudiant->update([
       'nom' => $request->nom,
-      'email' => $request->email,
       'ville_id' => $request->ville_id,
       'adresse' => $request->adresse,
       'date_naissance' => $request->date_naissance,
       'phone' => $request->phone
     ]);
 
-    return redirect(route('etudiant.show', $etudiant->id))->withSuccess('Mise à jour réussite');
+    return redirect(route('etudiant.show', $etudiant->user_id))->withSuccess('Mise à jour réussite');
   }
 
   /**

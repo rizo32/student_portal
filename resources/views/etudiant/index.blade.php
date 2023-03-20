@@ -18,18 +18,18 @@
 
         @forelse($etudiants as $etudiant)
           <tr>
-            <td class="text-center"><a href="{{ route('etudiant.show', $etudiant->id) }}"
+            <td class="text-center"><a href="{{ route('etudiant.show', $etudiant->user_id) }}"
                 class="text-decoration-none link-light">{{ $etudiant->nom }}</a></td>
-            <td class="text-center"><a href="{{ route('etudiant.show', $etudiant->id) }}"
-                class="text-decoration-none link-light">{{ $etudiant->email }}</a></td>
-            <td class="text-center"><a href="{{ route('etudiant.show', $etudiant->id) }}"
+            <td class="text-center"><a href="{{ route('etudiant.show', $etudiant->user_id) }}"
+                class="text-decoration-none link-light">{{ $etudiant->user->email }}</a></td>
+            <td class="text-center"><a href="{{ route('etudiant.show', $etudiant->user_id) }}"
                 class="text-decoration-none link-light">{{ $etudiant->date_naissance }}</a></td>
-            <td class="text-center"><a href="{{ route('etudiant.edit', $etudiant->id) }}"
+            <td class="text-center"><a href="{{ route('etudiant.edit', $etudiant->user_id) }}"
                 class="text-decoration-none link-light">
                 <i class="fa-solid fa-rotate-right text-primary"></i>
               </a></td>
             <td class="text-center">
-              <form action="{{ route('etudiant.delete', $etudiant->id) }}" method="POST"
+              <form action="{{ route('etudiant.delete', $etudiant->user_id) }}" method="POST"
                 class="text-decoration-none link-light">
                 @csrf
                 @method('delete')

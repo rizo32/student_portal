@@ -4,7 +4,7 @@
 @section('content')
 
   <div class="col-md-8">
-    <form action="{{ route('etudiant.update', $etudiant->id) }}" method="POST">
+    <form action="{{ route('etudiant.update', $etudiant->user_id) }}" method="POST">
       @csrf
       @method('PUT')
       <div class="card-header text-secondary fst-italic text-center">
@@ -28,7 +28,7 @@
 
         <div class="control-grup col-12">
           <label for="email">Courriel</label>
-          <input type="text" id="email" name="email" class="form-control" value="{{ $etudiant->email }}" />
+          <input type="text" id="email" name="email" class="form-control" value="{{ $etudiant->user->email }}" />
         </div>
 
         <div class="control-grup col-12">

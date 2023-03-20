@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', $etudiant->etudiant_nom)
-@section('header', $etudiant->etudiant_nom)
+@section('title', $etudiant->nom)
+@section('header', $etudiant->nom)
 @section('content')
 
   <div class="col-md-6">
@@ -12,7 +12,7 @@
         </div>
       </div>
     @endif
-    <a href="{{ route('etudiant.edit', $etudiant->id) }}" class="text-decoration-none">
+    <a href="{{ route('etudiant.edit', $etudiant->user_id) }}" class="text-decoration-none">
       <table class="table table-dark table-striped table-hover">
         <tr>
           <td class="text-light"><strong>Adresse : </strong> {!! $etudiant->adresse !!}</td>
@@ -21,13 +21,13 @@
           <td class="text-light"><strong>Téléphone : </strong> {{ $etudiant->phone }}</td>
         </tr>
         <tr>
-          <td class="text-light"><strong>Courriel : </strong> {{ $etudiant->email }}</td>
+          <td class="text-light"><strong>Courriel : </strong> {{ $etudiant->user->email }}</td>
         </tr>
         <tr>
           <td class="text-light"><strong>Date de naissance : </strong> {{ $etudiant->date_naissance }}</td>
           </p>
         <tr>
-          <td class="text-light"><strong>Ville : </strong> {{ $etudiant->ville_nom }}</td>
+          <td class="text-light"><strong>Ville : </strong> {{ $etudiant->ville->nom }}</td>
         </tr>
       </table>
     </a>
@@ -51,7 +51,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Êtes-vous sûr que vous souhaitez retirer {{ $etudiant->etudiant_nom }} de la liste des étudiants?
+          Êtes-vous sûr que vous souhaitez retirer {{ $etudiant->nom }} de la liste des étudiants?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mhhh...</button>

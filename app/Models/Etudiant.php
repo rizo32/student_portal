@@ -7,32 +7,34 @@ use Illuminate\Database\Eloquent\Model;
 
 class Etudiant extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $primaryKey = 'user_id';
-    
-    protected $fillable = [
-        'nom',
-        'adresse',
-        'phone',
-        // 'email',
-        'date_naissance',
-        'ville_id'
-    ];
+  protected $primaryKey = 'user_id';
 
-    // Pour éviter la redondance, j'ai enlevé le timestamp à Étudiant, et les modifications à cette table seront notés dans la table User
-    // public $timestamps = false;
+  protected $fillable = [
+    'user_id',
+    'nom',
+    'adresse',
+    'phone',
+    'date_naissance',
+    'ville_id'
+  ];
 
-    public function user() {
-        return $this->belongsTo(User::class, 'user_id');
-        // caused problems
-        // return $this->belongsTo(User::class, 'user_id')->touch();
-    }
+  // Pour éviter la redondance, j'ai enlevé le timestamp à Étudiant, et les modifications à cette table seront notés dans la table User
+  // public $timestamps = false;
 
-    protected $touches = ['user'];
+  public function user()
+  {
+    return $this->belongsTo(User::class, 'user_id');
+    // caused problems
+    // return $this->belongsTo(User::class, 'user_id')->touch();
+  }
+
+  // protected $touches = ['user'];
 
 
-    public function ville() {
-      return $this->belongsTo(Ville::class, 'ville_id');
-    }
+  public function ville()
+  {
+    return $this->belongsTo(Ville::class, 'ville_id');
+  }
 }
