@@ -28,18 +28,16 @@
 
       <div class="control-grup col-12">
         <label for="email">Courriel</label>
-        <input type="text" id="email" placeholder="johndoe@caramail.com" name="email" class="form-control" value="{{ old('email') }}" />
+        <input type="text" id="email" placeholder="johndoe@caramail.com" name="email" class="form-control"
+          value="{{ old('email') }}" />
       </div>
 
       <div class="control-grup col-12">
         <label for="password">Mot de passe</label>
         <input type="password" id="password" placeholder="mypassword" name="password" class="form-control" />
       </div>
-
-
-  </div>
-
-  </form>
+      <input class="form-control mt-3" type="submit" value="Login" />
+    </form>
   </div>
 
 @endsection
