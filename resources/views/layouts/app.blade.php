@@ -28,6 +28,11 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
           <span class="navbar-toggler-icon"></span>
         </button>
+        @if($auth)
+        <p>Hello, {{ $auth->etudiant->nom }}!</p>
+        @else
+        <p>Hello, dear!</p>
+        @endif
         <div class="collapse navbar-collapse" id="navmenu">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
@@ -42,6 +47,11 @@
             <li class="nav-item">
               <a href="{{ route('login') }}"
                 class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}">Login</a>
+            </li>
+            @else
+            <li class="nav-item">
+              <a href="{{ route('logout') }}"
+                class="nav-link">Logout</a>
             </li>
             @endif
           </ul>

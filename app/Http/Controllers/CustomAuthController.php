@@ -119,7 +119,7 @@ class CustomAuthController extends Controller
 
     Auth::login($user);
 
-    return redirect()->intended(route('user.list'));
+    return redirect()->intended(route('welcome'));
 
     // return  $credentials;
   }

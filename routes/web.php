@@ -43,5 +43,5 @@ Route::delete('etudiant-edit/{etudiant}', [EtudiantController::class, 'destroy']
 // Route::post('registration', [CustomAuthController::class, 'store']);
 // Route::get('user-list', [CustomAuthController::class, 'userList'])->name('user.list')->middleware('auth');
 Route::get('login', [CustomAuthController::class, 'login'])->name('login');
-// Route::post('login', [CustomAuthController::class, 'authentication']);
-// Route::get('logout', [CustomAuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::post('login', [CustomAuthController::class, 'authentication']);
+Route::get('logout', [CustomAuthController::class, 'logout'])->name('logout')->middleware('auth');
