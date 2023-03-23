@@ -28,7 +28,7 @@
 
         <div class="control-grup col-12">
           <label for="email">Courriel</label>
-          <input type="text" id="email" name="email" class="form-control" value="{{ $etudiant->user->email }}" />
+          <input type="text" id="email" name="email" class="form-control" value="{{ $etudiant->etudiantBelongsToUser->email }}" />
         </div>
 
         <div class="control-grup col-12">

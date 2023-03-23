@@ -21,13 +21,13 @@
           <td class="text-light"><strong>Téléphone : </strong> {{ $etudiant->phone }}</td>
         </tr>
         <tr>
-          <td class="text-light"><strong>Courriel : </strong> {{ $etudiant->user->email }}</td>
+          <td class="text-light"><strong>Courriel : </strong> {{ $etudiant->etudiantBelongsToUser->email }}</td>
         </tr>
         <tr>
           <td class="text-light"><strong>Date de naissance : </strong> {{ $etudiant->date_naissance }}</td>
           </p>
         <tr>
-          <td class="text-light"><strong>Ville : </strong> {{ $etudiant->ville->nom }}</td>
+          <td class="text-light"><strong>Ville : </strong> {{ $etudiant->etudiantBelongsToVille->nom }}</td>
         </tr>
       </table>
     </a>

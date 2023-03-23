@@ -22,19 +22,19 @@ class EtudiantController extends Controller
 
   public function index(Request $request)
   {
-    $etudiants = Etudiant::with('user')->paginate(20);
+    $etudiants = Etudiant::with('etudiantBelongsToUser')->paginate(20);
+
+    $currentPageItems = $etudiants->items();
+    
+    $pagination = $etudiants->appends($request->query());
 
     $iconHtml = '<i class="fa-solid fa-xmark text-danger"></i>';
 
-    $currentPageItems = $etudiants->items();
-
-    $pagination = $etudiants->appends($request->query());
-
     return view('etudiant.index', [
       'etudiants' => $etudiants,
-      'icon' => $iconHtml,
       'items' => $currentPageItems,
-      'pagination' => $pagination
+      'pagination' => $pagination,
+      'icon' => $iconHtml,
     ]);
   }
 
@@ -46,7 +46,7 @@ class EtudiantController extends Controller
    */
   public function show(Etudiant $etudiant)
   {
-    $etudiant = Etudiant::with('ville', 'user')
+    $etudiant = Etudiant::with('etudiantBelongsToVille', 'etudiantBelongsToUser')
       ->findOrFail($etudiant->user_id);
     return view('etudiant.show', [
       'etudiant' => $etudiant,
@@ -61,7 +61,7 @@ class EtudiantController extends Controller
    */
   public function edit(Etudiant $etudiant)
   {
-    $etudiant = Etudiant::with('ville', 'user')
+    $etudiant = Etudiant::with('etudiantBelongsToVille', 'etudiantBelongsToUser')
       ->findOrFail($etudiant['user_id']);
     $villes = Ville::select()->get();
     return view('etudiant.edit', ['etudiant' => $etudiant, 'villes' => $villes]);
@@ -76,7 +76,7 @@ class EtudiantController extends Controller
    */
   public function update(Request $request, Etudiant $etudiant)
   {
-    $etudiant->user()->update([
+    $etudiant->etudiantBelongsToUser()->update([
       'email' => $request->email
     ]);
     $etudiant->update([
@@ -102,8 +102,4 @@ class EtudiantController extends Controller
 
     return redirect(route('etudiant.index'));
   }
-
-
-
-
 }

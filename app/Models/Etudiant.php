@@ -33,7 +33,7 @@ class Etudiant extends Model
   // protected $touches = ['user'];
 
 
-  public function ville()
+  public function etudiantBelongsToVille()
   {
     return $this->belongsTo(Ville::class, 'ville_id');
   }
