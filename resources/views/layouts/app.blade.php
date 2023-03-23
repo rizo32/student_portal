@@ -53,15 +53,15 @@
             @else
             <li class="nav-item">
               <a href="{{ route('article.index') }}"
-                class="nav-link">Articles</a>
+                class="nav-link {{ request()->routeIs('article.index') ? 'active' : '' }}">Articles</a>
             </li>
             <li class="nav-item">
               <a href="{{ route('article.userArticle') }}"
-                class="nav-link">Mes articles</a>
+                class="nav-link {{ request()->routeIs('article.userArticle') ? 'active' : '' }}">Mes articles</a>
             </li>
             <li class="nav-item">
               <a href="{{ route('article.create') }}"
-                class="nav-link">Écrire</a>
+                class="nav-link {{ request()->routeIs('article.create') ? 'active' : '' }}">Écrire</a>
             </li>
             <li class="nav-item">
               <a href="{{ route('logout') }}"
@@ -69,11 +69,11 @@
             </li>
             @endif
             <li class="nav-item">
-              <a class="dropdown-item @if($locale=='en') bg-warning @endif" 
-             href="/lang/en">English</a>
+              <a class="nav-link @if($locale=='en') active @endif" 
+             href="/lang/en">EN</a>
               </li>
               <li class="nav-item">
-              <a class="dropdown-item @if($locale=='fr') bg-warning @endif" href="/lang/fr">Français</a>
+              <a class="nav-link @if($locale=='fr') active @endif" href="/lang/fr">FR</a>
               </li>
           </ul>
         </div>
