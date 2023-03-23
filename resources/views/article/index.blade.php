@@ -29,10 +29,10 @@
               <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->body }}</a>
             </td>
             <td class="text-center">
-              <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->creation_date }}</a>
+              <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->created_at }}</a>
             </td>
             <td class="text-center">
-              <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->modification_date }}</a>
+              <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->updated_at }}</a>
             </td>
             <td class="text-center">
               <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->language }}</a>
@@ -46,6 +46,7 @@
     </table>
   </div>
   <div class="py-5">
+    {{-- {{ $articles --}}
     {{ $pagination->links('layouts.pagination') }}
   </div>
 @endsection
