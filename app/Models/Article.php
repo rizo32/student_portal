@@ -15,4 +15,9 @@ class Article extends Model
       'user_id',
       'language'
   ];
+
+  public function articleBelongsToUser()
+  {
+    return $this->belongsTo(User::class, 'user_id');
+  }
 }
