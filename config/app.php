@@ -80,8 +80,9 @@ return [
     |
     */
 
-    'locale' => 'en',
-
+    'locale' => 'en', // set the default locale
+    'supported_locales' => ['en', 'fr'], // define the supported locales
+    
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale

@@ -20,6 +20,8 @@
 </head>
 
 <body class="bg-dark">
+  @php $locale = session()->get('locale'); @endphp
+
   <header>
     <nav class="navbar navbar-expand-md bg-secondary navbar-light">
       <div class="container">
@@ -29,7 +31,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         @if($auth)
-        <p>Hello, {{ $auth->etudiant->nom }}!</p>
+        <p>Hello, {{ $auth->userHasOneEtudiant->nom }}!</p>
         @else
         <p>Hello, dear!</p>
         @endif
@@ -37,7 +39,7 @@
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <a href="{{ route('etudiant.index') }}"
-                class="nav-link {{ request()->routeIs('etudiant.index') ? 'active' : '' }}">Nos étudiants</a>
+                class="nav-link {{ request()->routeIs('etudiant.index') ? 'active' : '' }}">@lang('lang.our_students')</a>
             </li>
             @if (!$auth)
             <li class="nav-item">
@@ -50,10 +52,29 @@
             </li>
             @else
             <li class="nav-item">
+              <a href="{{ route('article.index') }}"
+                class="nav-link">Articles</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('article.userArticle') }}"
+                class="nav-link">Mes articles</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('article.create') }}"
+                class="nav-link">Écrire</a>
+            </li>
+            <li class="nav-item">
               <a href="{{ route('logout') }}"
                 class="nav-link">Logout</a>
             </li>
             @endif
+            <li class="nav-item">
+              <a class="dropdown-item @if($locale=='en') bg-warning @endif" 
+             href="/lang/en">English</a>
+              </li>
+              <li class="nav-item">
+              <a class="dropdown-item @if($locale=='fr') bg-warning @endif" href="/lang/fr">Français</a>
+              </li>
           </ul>
         </div>
       </div>
