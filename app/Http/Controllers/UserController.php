@@ -53,7 +53,7 @@ class UserController extends Controller
         'password' => Hash::make($request->password)
       ]);
       
-      $etudiant = Etudiant::with('user')->create([
+      $etudiant = Etudiant::with('etudiantBelongsToUser')->create([
         'user_id' => $user['id'],
         'nom' => $request->nom,
         'ville_id' => $request->ville_id,

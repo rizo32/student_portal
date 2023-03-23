@@ -16,4 +16,9 @@ class Document extends Model
       'extension',
       'langue'
   ];
+
+  public function documentBelongsToUser()
+  {
+    return $this->belongsTo(User::class, 'user_id');
+  }
 }
