@@ -64,7 +64,7 @@ Route::delete('article-edit/{article}', [ArticleController::class, 'destroy'])->
 
 // Localization
 
-Route::get('/lang/{locale}', [LocalizationController::class, 'index']);
+Route::get('/lang/{locale}', [LocalizationController::class, 'index'])->name('lang');
 
 
 
