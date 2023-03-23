@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Nos étudiants')
-@section('header', 'Nos étudiants')
+@section('title', @lang('lang.our_students'))
+@section('header', @lang('lang.our_students'))
 @section('content')
 
   <div class="col-12">
@@ -15,11 +15,11 @@
     <table class="table table-dark table-striped table-hover">
       <thead class="table-primary">
         <tr>
-          <th class="text-center text-dark">Nom</th>
-          <th class="text-center text-dark">Courriel</th>
-          <th class="text-center text-dark">Date de naissance</th>
-          <th class="text-center text-dark">Modifier</th>
-          <th class="text-center text-dark">Supprimer</th>
+          <th class="text-center text-dark">@lang('lang.name')</th>
+          <th class="text-center text-dark">@lang('lang.email')</th>
+          <th class="text-center text-dark">@lang('lang.birthday')</th>
+          <th class="text-center text-dark">@lang('lang.edit')</th>
+          <th class="text-center text-dark">@lang('lang.delete')</th>
         </tr>
       </thead>
       <tbody>
@@ -46,7 +46,7 @@
           </tr>
 
         @empty
-          <tr>Aucun étudiant sélectionné</tr>
+          <tr>@lang('lang.no_student')</tr>
         @endforelse
       </tbody>
     </table>
@@ -55,18 +55,18 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Attention!</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">@lang('lang.warning')!</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            Êtes-vous sûr que vous souhaitez retirer {{ $etudiant->nom }} de la liste des étudiants?
+          <div class="modal-body">@lang('lang.are_you_sure')
+             {{ $etudiant->nom }}@lang('lang.student_list')?
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Oh non!</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('lang.no')!</button>
             <form action="{{ route('article.delete', $etudiant) }}" method="post">
               @csrf
               @method('delete')
-              <input type="submit" class="btn btn-danger" value="Sûr comme un citron">
+              <input type="submit" class="btn btn-danger" value=@lang('lang.confirm')>
             </form>
           </div>
         </div>

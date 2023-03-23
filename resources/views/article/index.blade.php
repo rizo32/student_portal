@@ -1,18 +1,18 @@
 @extends('layouts.app')
-@section('title', 'Les articles')
-@section('header', 'Les articles')
+@section('title', @lang('lang.the_articles'))
+@section('header', @lang('lang.the_articles'))
 @section('content')
 
   <div class="col-12">
     <table class="table table-dark table-striped table-hover">
       <thead class="table-primary">
         <tr>
-          <th class="text-center text-dark">Titre</th>
-          <th class="text-center text-dark">Auteur</th>
-          <th class="text-center text-dark">Extrait</th>
-          <th class="text-center text-dark">Date de création</th>
-          <th class="text-center text-dark">Dernière modification</th>
-          <th class="text-center text-dark">Langue</th>
+          <th class="text-center text-dark">@lang('lang.title')</th>
+          <th class="text-center text-dark">@lang('lang.author')</th>
+          <th class="text-center text-dark">@lang('lang.extract')</th>
+          <th class="text-center text-dark">@lang('lang.creation_date')</th>
+          <th class="text-center text-dark">@lang('lang.modification_date')</th>
+          <th class="text-center text-dark">@lang('lang.language')</th>
         </tr>
       </thead>
       <tbody>
@@ -40,7 +40,7 @@
           </tr>
 
         @empty
-          <tr>No article here!</tr>
+          <tr>@lang('lang.be_creative')!</tr>
         @endforelse
       </tbody>
     </table>

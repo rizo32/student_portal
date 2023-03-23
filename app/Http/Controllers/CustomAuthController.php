@@ -48,7 +48,7 @@ class CustomAuthController extends Controller
     $user->password = Hash::make($request->password);
     $user->save();
 
-    return redirect()->back()->withSuccess('Success !');
+    return redirect()->back()->withSuccess(trans('lang.success'));
   }
 
   /**

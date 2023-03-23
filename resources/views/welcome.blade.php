@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Accueil')
+@section('title', @lang('lang.home'))
 @section('content')
     <div class="container">
         <div class="col-12 text-center pt-5 text-light">
-            <div class="display-5 mt-2">Bienvenue!</div>
+            <div class="display-5 mt-2">@lang('lang.welcome')!</div>
         </div>
     </div>
 @endsection

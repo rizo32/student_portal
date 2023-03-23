@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Connectez-vous')
+@section('title', @lang('lang.login'))
 @section('header', 'Login')
 @section('content')
 
@@ -23,20 +23,20 @@
       @endif
 
       <div class="card-header text-secondary fst-italic text-center">
-        Veuillez saisir vos informations
+        @lang('lang.provide_infos')
       </div>
 
       <div class="control-grup col-12">
-        <label for="email">Courriel</label>
+        <label for="email">@lang('lang.email')</label>
         <input type="text" id="email" placeholder="johndoe@caramail.com" name="email" class="form-control"
           value="{{ old('email') }}" />
       </div>
 
       <div class="control-grup col-12">
-        <label for="password">Mot de passe</label>
+        <label for="password">@lang('lang.password')</label>
         <input type="password" id="password" placeholder="mypassword" name="password" class="form-control" />
       </div>
-      <input class="form-control mt-3" type="submit" value="Login" />
+      <input class="form-control mt-3" type="submit" value=@lang('lang.login') />
     </form>
   </div>
 

@@ -31,9 +31,9 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         @if($auth)
-        <p>Hello, {{ $auth->userHasOneEtudiant->nom }}!</p>
+        <p>@lang('lang.hello'), {{ $auth->userHasOneEtudiant->nom }}!</p>
         @else
-        <p>Hello, dear!</p>
+        <p>@lang('lang.hello'), @lang('lang.guest')!</p>
         @endif
         <div class="collapse navbar-collapse" id="navmenu">
           <ul class="navbar-nav ms-auto">
@@ -44,28 +44,28 @@
             @if (!$auth)
             <li class="nav-item">
               <a href="{{ route('user.create') }}"
-                class="nav-link {{ request()->routeIs('user.create') ? 'active' : '' }}">Admission</a>
+                class="nav-link {{ request()->routeIs('user.create') ? 'active' : '' }}">@lang('lang.admission')</a>
             </li>
             <li class="nav-item">
               <a href="{{ route('login') }}"
-                class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}">Login</a>
+                class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}">@lang('lang.login')</a>
             </li>
             @else
             <li class="nav-item">
               <a href="{{ route('article.index') }}"
-                class="nav-link {{ request()->routeIs('article.index') ? 'active' : '' }}">Articles</a>
+                class="nav-link {{ request()->routeIs('article.index') ? 'active' : '' }}">@lang('lang.articles')</a>
             </li>
             <li class="nav-item">
               <a href="{{ route('article.userArticle') }}"
-                class="nav-link {{ request()->routeIs('article.userArticle') ? 'active' : '' }}">Mes articles</a>
+                class="nav-link {{ request()->routeIs('article.userArticle') ? 'active' : '' }}">@lang('lang.my_articles')</a>
             </li>
             <li class="nav-item">
               <a href="{{ route('article.create') }}"
-                class="nav-link {{ request()->routeIs('article.create') ? 'active' : '' }}">Écrire</a>
+                class="nav-link {{ request()->routeIs('article.create') ? 'active' : '' }}">@lang('lang.write')</a>
             </li>
             <li class="nav-item">
               <a href="{{ route('logout') }}"
-                class="nav-link">Logout</a>
+                class="nav-link">@lang('lang.logout')</a>
             </li>
             @endif
             <li class="nav-item">
@@ -99,7 +99,7 @@
   </main>
   <!--/container-->
   <footer class="container mb-3">
-    <div class="text-secondary text-center">&copy; <i>2023 Tous les droits réservés rizorizo.art</i></div>
+    <div class="text-secondary text-center">&copy; <i>@lang('lang.copyrights')rizorizo.art</i></div>
   </footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"

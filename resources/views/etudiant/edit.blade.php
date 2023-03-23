@@ -8,37 +8,37 @@
       @csrf
       @method('PUT')
       <div class="card-header text-secondary fst-italic text-center">
-        Veuillez saisir vos informations
+        @lang('lang.be_creative')
       </div>
       <div class="text-light d-flex flex-column gap-3">
         <div class="control-grup col-12">
-          <label for="nom">Nom :</label>
+          <label for="nom">@lang('lang.name') :</label>
           <input type="text" id="nom" name="nom" class="form-control" value="{{ $etudiant->nom }}">
         </div>
 
         <div class="control-grup col-12">
-          <label for="adresse">Adresse</label>
+          <label for="adresse">@lang('lang.adress')</label>
           <input type="text" id="adresse" name="adresse" class="form-control" value="{{ $etudiant->adresse }}" />
         </div>
 
         <div class="control-grup col-12">
-          <label for="phone">Numéro de téléphone</label>
+          <label for="phone">@lang('lang.phone')</label>
           <input type="text" id="phone" name="phone" class="form-control" value="{{ $etudiant->phone }}" />
         </div>
 
         <div class="control-grup col-12">
-          <label for="email">Courriel</label>
+          <label for="email">@lang('lang.email')</label>
           <input type="text" id="email" name="email" class="form-control" value="{{ $etudiant->etudiantBelongsToUser->email }}" />
         </div>
 
         <div class="control-grup col-12">
-          <label for="date_naissance">Date de naissance</label>
+          <label for="date_naissance">@lang('lang.birthday')</label>
           <input type="text" id="date_naissance" name="date_naissance" class="form-control"
             value="{{ $etudiant->date_naissance }}" />
         </div>
 
         <div class="control-grup col-12">
-          <label for="ville_id">Ville</label>
+          <label for="ville_id">@lang('lang.ville')</label>
           <select id="ville_id" name="ville_id" class="form-control">
 
             @foreach ($villes as $ville)
@@ -50,7 +50,7 @@
         </div>
         <div class="d-flex justify-content-end gap-2">
           <input type="submit" class="btn btn-primary" value="It's a go!">
-          <a href="{{ route('etudiant.index') }}" class="btn btn-secondary link-dark">Retour</a>
+          <a href="{{ route('etudiant.index') }}" class="btn btn-secondary link-dark">@lang('lang.back')</a>
         </div>
       </div>
 

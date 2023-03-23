@@ -15,50 +15,48 @@
     <a href="{{ route('etudiant.edit', $etudiant->user_id) }}" class="text-decoration-none">
       <table class="table table-dark table-striped table-hover">
         <tr>
-          <td class="text-light"><strong>Adresse : </strong> {!! $etudiant->adresse !!}</td>
+          <td class="text-light"><strong>@lang('lang.adress') : </strong> {!! $etudiant->adresse !!}</td>
         </tr>
         <tr>
-          <td class="text-light"><strong>Téléphone : </strong> {{ $etudiant->phone }}</td>
+          <td class="text-light"><strong>@lang('lang.phone') : </strong> {{ $etudiant->phone }}</td>
         </tr>
         <tr>
-          <td class="text-light"><strong>Courriel : </strong> {{ $etudiant->etudiantBelongsToUser->email }}</td>
+          <td class="text-light"><strong>@lang('lang.email') : </strong> {{ $etudiant->etudiantBelongsToUser->email }}</td>
         </tr>
         <tr>
-          <td class="text-light"><strong>Date de naissance : </strong> {{ $etudiant->date_naissance }}</td>
+          <td class="text-light"><strong>@lang('lang.birthday') : </strong> {{ $etudiant->date_naissance }}</td>
           </p>
         <tr>
-          <td class="text-light"><strong>Ville : </strong> {{ $etudiant->etudiantBelongsToVille->nom }}</td>
+          <td class="text-light"><strong>@lang('lang.city') : </strong> {{ $etudiant->etudiantBelongsToVille->nom }}</td>
         </tr>
       </table>
     </a>
     <div class="d-flex justify-content-end gap-2">
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Supprimer
+        @lang('lang.delete')
       </button>
-      <a href="{{ route('etudiant.index') }}" class="btn btn-secondary link-dark">Retour</a>
+      <a href="{{ route('etudiant.index') }}" class="btn btn-secondary link-dark">@lang('lang.back')</a>
     </div>
   </div>
-
-
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Attention!</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">@lang('lang.warning')!</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Êtes-vous sûr que vous souhaitez retirer {{ $etudiant->nom }} de la liste des étudiants?
+          @lang('lang.are_you_sure') {{ $etudiant->nom }} @lang('lang.student_list')
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mhhh...</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('lang.no')</button>
           <form action="{{ route('etudiant.delete', $etudiant) }}" method="post">
             @csrf
             @method('delete')
-            <input type="submit" class="btn btn-danger" value="Sûr comme un citron">
+            <input type="submit" class="btn btn-danger" value=@lang('lang.confirm')>
           </form>
         </div>
       </div>
