@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,6 +61,8 @@ class ArticleController extends Controller
    */
   public function create()
   {
+    $categories = Category::selectCategory();
+
     return view('article.create');
   }
 
@@ -71,14 +74,52 @@ class ArticleController extends Controller
    */
   public function store(Request $request)
   {
+    // dd($request);
     $loggedUser = Auth::User()->id;
 
-    $article = Article::create([
-      'title' => $request->title,
-      'body' => $request->body,
-      'language' => $request->language,
-      'user_id' => $loggedUser,
-    ]);
+    // validate that at least one title is filled
+    $request->validate([
+      'title_en' => 'required_without_all:title_fr',
+      'title_fr' => 'required_without_all:title_en',
+    ], [
+      'title_en.required_without_all' => __('validation.required', ['attribute' => __('lang.title')]),
+      'body_en.required_if' => __('validation.required', ['attribute' => __('lang.content')]),
+      ]);
+
+    if ($request->title_en) {
+
+      $request->validate([
+        'body_en' => 'required',
+      ]);
+
+      $article = Article::create([
+        'title' => $request->title_en,
+        'body' => $request->body_en,
+        'language' => 'english',
+        'user_id' => $loggedUser,
+      ]);
+
+    }
+
+    if ($request->title_fr) {
+
+      $request->validate([
+        'body_fr' => 'required',
+      ]);
+
+      $article = Article::create([
+        'title' => $request->title_fr,
+        'body' => $request->body_fr,
+        'language' => 'french',
+        'user_id' => $loggedUser,
+      ]);
+    }
+
+    // $article = new Article;
+    // $article->fill($request->all());
+    // $article->user_id = $loggedUser;
+    // $article->save();
+
 
     return redirect(route('article.userArticle'));
   }
