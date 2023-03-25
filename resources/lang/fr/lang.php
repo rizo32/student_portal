@@ -19,11 +19,14 @@ return [
   'password' => 'Mot de passe',
   'sign_up' => 'Enregistrer',
   'provide_infos' => 'Veuillez saisir vos informations',
+  'edit_infos' => 'Vous pouvez modifier les informations',
+  'edit_title' => 'Modification - Étudiant',
 
   // étudiant
   'name' => 'Nom',
   'phone' => 'Téléphone',
   'birthday' => 'Date de naissance',
+  'address' => 'Adresse',
   'city' => 'Ville',
   'no_student' => 'Aucun étudiant sélectionné',
   'student_list' => ' de la liste des étudiants',
@@ -55,6 +58,7 @@ return [
   'confirm_article_delete' => 'Êtes-vous sûr que vous souhaitez supprimer définitivement votre article ',
   'the_articles' => 'Les articles',
   'modification_article' => "Modification d'article",
+  'write_article' => "Écriture d'article",
 
   // errors
   '404_message' => "Erreur 404: La page n'est pas disponible",

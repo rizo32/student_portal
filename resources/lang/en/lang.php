@@ -19,11 +19,14 @@ return [
   'password' => 'Password',
   'sign_up' => 'Sign up',
   'provide_infos' => 'Please enter your informations',
+  'edit_infos' => 'You can edit the informations',
+  'edit_title' => 'Modification - Student',
 
   // students
   'name' => 'Name',
   'phone' => 'Phone',
   'birthday' => 'Birthday',
+  'address' => 'Address',
   'city' => 'City',
   'no_student' => 'No student selected',
   'student_list' => ' from the student list',
@@ -56,6 +59,7 @@ return [
   'confirm_article_delete' => 'Are you sure you want to definitively delete your article ',
   'the_articles' => 'The articles',
   'modification_article' => "Edit your article",
+  'write_article' => "Write your article",
 
 
   // errors
