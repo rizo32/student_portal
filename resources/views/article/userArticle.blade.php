@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', @lang('lang.my_articles'))
-@section('header', @lang('lang.my_articles'))
+@section('title', trans('lang.my_articles'))
+@section('header', trans('lang.my_articles'))
 @section('content')
 
   <div class="col-12">
@@ -54,13 +54,34 @@
               </a></td>
             <td class="text-center">
               <div class="text-decoration-none link-light">
-                <button type="button" class="btn-unstyled" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn-unstyled" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $article->id }}">
                   {!! $icon !!}
                 </button>
               </div>
 
             </td>
           </tr>
+          <!-- Modal -->
+          <div class="modal fade" id="deleteModal{{ $article->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">@lang('lang.warning')!</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  @lang('lang.confirm_article_delete'){{ $article->title }}?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('lang.no')!</button>
+                  <form action="{{ route('article.delete', $article) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <input type="submit" class="btn btn-danger" value="@lang('lang.confirm')">
+                  </form>
+                </div>
+              </div>
+            </div>
 
         @empty
           <tr>@lang('lang.no_article')</tr>
@@ -68,27 +89,8 @@
       </tbody>
     </table>
   </div>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">@lang('lang.warning')!</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          @lang('lang.confirm_article_delete'){{ $article->title }}?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('lang.no')!</button>
-          <form action="{{ route('article.delete', $article) }}" method="post">
-            @csrf
-            @method('delete')
-            <input type="submit" class="btn btn-danger" value=@lang('lang.confirm')>
-          </form>
-        </div>
-      </div>
-    </div>
+
+
     <div class="py-5">
       {{ $pagination->links('layouts.pagination') }}
     </div>
