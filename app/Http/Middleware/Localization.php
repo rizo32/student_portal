@@ -3,6 +3,7 @@ namespace App\Http\Middleware;
 
 use App;
 use Closure;
+use Illuminate\Http\Request;
 
 class Localization
 {
@@ -12,10 +13,13 @@ class Localization
    * @param \Closure $next
    * @return mixed
    */
-  public function handle($request, Closure $next)
+  public function handle(Request $request, Closure $next)
   {
-    if (session()->has('locale')) {
+    if (session()->has('locale') && session()->get('locale') != 'en') {
       App::setLocale(session()->get('locale'));
+      session()->put('localeDB', '_' . session()->get('locale'));
+    } else {
+      session()->put('localeDB', '');
     }
     return $next($request);
   }
