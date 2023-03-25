@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', @lang('lang.home'))
+@section('title', trans('lang.home'))
 @section('content')
     <div class="container">
         <div class="col-12 text-center pt-5 text-light">

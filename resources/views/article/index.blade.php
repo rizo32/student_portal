@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', @lang('lang.the_articles'))
-@section('header', @lang('lang.the_articles'))
+@section('title', trans('lang.the_articles'))
+@section('header', trans('lang.the_articles'))
 @section('content')
 
   <div class="col-12">

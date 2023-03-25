@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Modifier')
-@section('header', 'Modifier les informations')
+@section('title', trans('lang.edit_title'))
+@section('header', trans('lang.edit_infos'))
 @section('content')
 
   <div class="col-md-8">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="control-grup col-12">
-          <label for="adresse">@lang('lang.adress')</label>
+          <label for="adresse">@lang('lang.address')</label>
           <input type="text" id="adresse" name="adresse" class="form-control" value="{{ $etudiant->adresse }}" />
         </div>
 
@@ -38,7 +38,7 @@
         </div>
 
         <div class="control-grup col-12">
-          <label for="ville_id">@lang('lang.ville')</label>
+          <label for="ville_id">@lang('lang.city')</label>
           <select id="ville_id" name="ville_id" class="form-control">
 
             @foreach ($villes as $ville)

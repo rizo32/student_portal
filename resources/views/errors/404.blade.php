@@ -1,7 +1,7 @@
 <!-- resources/views/errors/404.blade.php -->
 @extends('layouts.app')
 
-@section('title', @lang('lang.page_not_found'))
+@section('title', trans('lang.page_not_found'))
 
 @section('content')
     <div class="alert alert-danger">

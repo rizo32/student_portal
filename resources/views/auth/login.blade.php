@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', @lang('lang.login'))
+@section('title', trans('lang.login'))
 @section('header', 'Login')
 @section('content')
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', @lang('lang.modification_article'))
-@section('header', @lang('lang.modification_article'))
+@section('title', trans('lang.modification_article'))
+@section('header', trans('lang.modification_article'))
 @section('content')
 
   <div class="col-md-8">
@@ -27,8 +27,8 @@
         </div>
 
         <div class="d-flex justify-content-end gap-2">
-          <input type="submit" class="btn btn-primary" value="It's a go!">
-          <a href="{{ route('article.index') }}" class="btn btn-secondary link-dark">@lang('lang.back')</a>
+          <input type="submit" class="btn btn-primary" value="@lang('lang.submit')">
+          <a href="{{ route('article.userArticle') }}" class="btn btn-secondary link-dark">@lang('lang.back')</a>
         </div>
       </div>
 

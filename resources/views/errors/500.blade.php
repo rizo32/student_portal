@@ -1,7 +1,7 @@
 <!-- resources/views/errors/500.blade.php -->
 @extends('layouts.app')
 
-@section('title', @lang('lang.server_error'))
+@section('title', trans('lang.server_error'))
 
 @section('content')
     <div class="alert alert-danger">
