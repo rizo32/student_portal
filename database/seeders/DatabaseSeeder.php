@@ -13,29 +13,9 @@ class DatabaseSeeder extends Seeder
             VilleTableSeeder::class,
             UserTableSeeder::class,
             EtudiantTableSeeder::class,
+            LanguageTableSeeder::class,
+            ArticleTableSeeder::class,
+            ArticleLanguageTableSeeder::class
         ]);
-    }
-}
-
-class VilleTableSeeder extends Seeder
-{
-    public function run()
-    {
-        \App\Models\Ville::factory(15)->create();
-    }
-}
-class UserTableSeeder extends Seeder
-{
-    public function run()
-    {
-        \App\Models\User::factory(100)->create();
-    }
-}
-
-class EtudiantTableSeeder extends Seeder
-{
-    public function run()
-    {
-        \App\Models\Etudiant::factory(100)->create();
     }
 }
