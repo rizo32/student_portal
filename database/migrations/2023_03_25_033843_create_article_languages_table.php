@@ -6,26 +6,31 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateArticleLanguagesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('article_languages', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('article_languages', function (Blueprint $table) {
+      $table->foreignId('language_id')->constrained()->onDelete('cascade');
+      $table->foreignId('article_id')->constrained()->onDelete('cascade');
+      $table->string('title', 100);
+      $table->text('body');
+      $table->timestamps();
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('article_languages');
-    }
+      $table->primary(['article_id', 'language_id']);
+    });
+  }
+
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('article_languages');
+  }
 }

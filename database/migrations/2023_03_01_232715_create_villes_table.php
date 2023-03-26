@@ -27,6 +27,8 @@ class CreateVillesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('villes');
+      DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+      Schema::dropIfExists('villes');
+      DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

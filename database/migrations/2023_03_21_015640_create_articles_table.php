@@ -15,11 +15,11 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 50);
-            $table->text('body');
+            // $table->string('title', 50);
+            // $table->text('body');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('language', 20);
-            $table->timestamps();
+            // $table->string('language', 20);
+            // $table->timestamps();
         });
     }
 
