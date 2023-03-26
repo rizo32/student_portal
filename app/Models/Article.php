@@ -8,14 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $fillable = [
-      'title',
-      'body',
-      'title_fr',
-      'body_fr',
+      // 'title',
+      // 'body',
+      // 'title_fr',
+      // 'body_fr',
       'user_id',
-      'language'
+      // 'language'
   ];
 
   public function user()

@@ -10,8 +10,17 @@ class ArticleLanguage extends Model
   use HasFactory;
 
   protected $table = 'article_languages';
+  protected $primaryKey = ['article_id', 'language_id'];
 
-  protected $fillable = ['article_id', 'language_id', 'title', 'body'];
+  public $incrementing = false;
+
+
+  protected $fillable = [
+    'article_id',
+    'language_id',
+    'title',
+    'body'
+  ];
 
   public function article()
   {
