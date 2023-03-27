@@ -46,17 +46,17 @@ Route::get('article', [ArticleController::class, 'index'])->name('article.index'
 
 Route::get('user-article', [ArticleController::class, 'userArticle'])->name('article.userArticle')->middleware('auth');
 
-Route::get('article/{article}', [ArticleController::class, 'show'])->name('article.show')->middleware('auth');
+Route::get('article/{article}/{language_id}', [ArticleController::class, 'show'])->name('article.show')->middleware('auth');
 
-Route::get('article-edit/{article}', [ArticleController::class, 'edit'])->name('article.edit')->middleware('auth');
+Route::get('article-edit/{article_id}/{language_id}', [ArticleController::class, 'edit'])->name('article.edit')->middleware('auth');
 
 Route::get('article-create', [ArticleController::class, 'create'])->name('article.create')->middleware('auth');
 
 Route::post('article-create', [ArticleController::class, 'store'])->name('article.store')->middleware('auth');
 
-Route::put('article-edit/{article}', [ArticleController::class, 'update'])->name('article.update')->middleware('auth');
+Route::put('article-edit/{article_id}/{language_id}', [ArticleController::class, 'update'])->name('article.update')->middleware('auth');
 
-Route::delete('article-edit/{article}', [ArticleController::class, 'destroy'])->name('article.delete')->middleware('auth');
+Route::delete('article-edit/{article}/{language_id}', [ArticleController::class, 'destroy'])->name('article.delete')->middleware('auth');
 
 
 // Document
