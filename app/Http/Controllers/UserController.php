@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Etudiant;
 use App\Models\Ville;
-use App\Models\Auth;
+// use App\Models\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -31,7 +32,8 @@ class UserController extends Controller
   public function create()
   {
     $villes = Ville::select()->get();
-    return view('user.create', ['villes' => $villes]);
+    $view = view('user.create', ['villes' => $villes]);
+    return response($view);
   }
 
   /**
@@ -46,14 +48,20 @@ class UserController extends Controller
     // si la création d'étudiant échoue, je veux qu'user soit rollback, et vice-versa
     DB::beginTransaction();
 
+    // peut-être pas nécéssaire de faire le try catch si les validations sont explicites
     try {
+
+      $request->validate([
+        'email' => 'required|email|unique:users',
+        'password' => 'min:6'
+      ]);
 
       $user = User::create([
         'email' => $request->email,
         'password' => Hash::make($request->password)
       ]);
       
-      $etudiant = Etudiant::with('etudiantBelongsToUser')->create([
+      $etudiant = Etudiant::with('user')->create([
         'user_id' => $user['id'],
         'nom' => $request->nom,
         'ville_id' => $request->ville_id,
@@ -66,8 +74,12 @@ class UserController extends Controller
       DB::rollback(); // Abort! Abort!
       throw $e;
     }
+    Auth::login($user);
 
-    return redirect(route('etudiant.show', $etudiant->user_id));
+    
+    return redirect(route('welcome'))->withSuccess(trans('lang.success'));
+
+    // return redirect(route('etudiant.show', $etudiant->user_id));
   }
 
     /**
