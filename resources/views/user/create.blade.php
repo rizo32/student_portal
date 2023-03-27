@@ -15,7 +15,7 @@
           <input type="text" id="nom" name="nom" class="form-control">
         </div>
         <div class="control-grup col-12">
-          <label for="nom">@lang('lang.adress')</label>
+          <label for="nom">@lang('lang.address')</label>
           <input type="text" id="adresse" name="adresse" class="form-control">
         </div>
         <div class="control-grup col-12">
