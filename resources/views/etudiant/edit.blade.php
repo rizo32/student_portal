@@ -28,12 +28,12 @@
 
         <div class="control-grup col-12">
           <label for="email">@lang('lang.email')</label>
-          <input type="text" id="email" name="email" class="form-control" value="{{ $etudiant->etudiantBelongsToUser->email }}" />
+          <input type="text" id="email" name="email" class="form-control" value="{{ $etudiant->user->email }}" />
         </div>
 
         <div class="control-grup col-12">
           <label for="date_naissance">@lang('lang.birthday')</label>
-          <input type="text" id="date_naissance" name="date_naissance" class="form-control"
+          <input type="date" id="date_naissance" name="date_naissance" class="form-control"
             value="{{ $etudiant->date_naissance }}" />
         </div>
 

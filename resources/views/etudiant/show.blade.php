@@ -15,19 +15,19 @@
     <a href="{{ route('etudiant.edit', $etudiant->user_id) }}" class="text-decoration-none">
       <table class="table table-dark table-striped table-hover">
         <tr>
-          <td class="text-light"><strong>@lang('lang.adress') : </strong> {!! $etudiant->adresse !!}</td>
+          <td class="text-light"><strong>@lang('lang.address') : </strong> {!! $etudiant->adresse !!}</td>
         </tr>
         <tr>
           <td class="text-light"><strong>@lang('lang.phone') : </strong> {{ $etudiant->phone }}</td>
         </tr>
         <tr>
-          <td class="text-light"><strong>@lang('lang.email') : </strong> {{ $etudiant->etudiantBelongsToUser->email }}</td>
+          <td class="text-light"><strong>@lang('lang.email') : </strong> {{ $etudiant->user->email }}</td>
         </tr>
         <tr>
           <td class="text-light"><strong>@lang('lang.birthday') : </strong> {{ $etudiant->date_naissance }}</td>
           </p>
         <tr>
-          <td class="text-light"><strong>@lang('lang.city') : </strong> {{ $etudiant->etudiantBelongsToVille->nom }}</td>
+          <td class="text-light"><strong>@lang('lang.city') : </strong> {{ $etudiant->ville->nom }}</td>
         </tr>
       </table>
     </a>
@@ -56,7 +56,7 @@
           <form action="{{ route('etudiant.delete', $etudiant) }}" method="post">
             @csrf
             @method('delete')
-            <input type="submit" class="btn btn-danger" value=@lang('lang.confirm')>
+            <input type="submit" class="btn btn-danger" value="@lang('lang.confirm')">
           </form>
         </div>
       </div>

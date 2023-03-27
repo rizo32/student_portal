@@ -29,7 +29,7 @@
             <td class="text-center"><a href="{{ route('etudiant.show', $etudiant->user_id) }}"
                 class="text-decoration-none link-light">{{ $etudiant->nom }}</a></td>
             <td class="text-center"><a href="{{ route('etudiant.show', $etudiant->user_id) }}"
-                class="text-decoration-none link-light">{{ $etudiant->etudiantBelongsToUser->email }}</a></td>
+                class="text-decoration-none link-light">{{ $etudiant->user->email }}</a></td>
             <td class="text-center"><a href="{{ route('etudiant.show', $etudiant->user_id) }}"
                 class="text-decoration-none link-light">{{ $etudiant->date_naissance }}</a></td>
             <td class="text-center"><a href="{{ route('etudiant.edit', $etudiant->user_id) }}"
@@ -60,7 +60,7 @@
                   <form action="{{ route('etudiant.delete', $etudiant) }}" method="post">
                     @csrf
                     @method('delete')
-                    <input type="submit" class="btn btn-danger" value=@lang('lang.confirm')>
+                    <input type="submit" class="btn btn-danger" value="@lang('lang.confirm')">
                   </form>
                 </div>
               </div>

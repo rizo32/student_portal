@@ -31,7 +31,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         @if($auth)
-        <p>@lang('lang.hello'), {{ $auth->userHasOneEtudiant->nom }}!</p>
+        <p>@lang('lang.hello'), {{ $auth->etudiant->nom }}!</p>
         @else
         <p>@lang('lang.hello'), @lang('lang.guest')!</p>
         @endif
