@@ -30,8 +30,8 @@ class Article extends Model
     return $this->belongsTo(Language::class);
   }
 
-  public function articleLanguages()
+  public function articleLanguage()
   {
-    return $this->hasMany(User::class);
+    return $this->hasMany(ArticleLanguage::class);
   }
 }
