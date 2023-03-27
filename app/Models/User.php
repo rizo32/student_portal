@@ -42,15 +42,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function userHasOneEtudiant() {
+    public function etudiant() {
       return $this->hasOne(Etudiant::class, 'user_id');
     }
 
-    public function userHasManyArticle() {
+    public function article() {
       return $this->hasMany(Article::class, 'user_id');
     }
 
-    public function userHasManyDocument() {
+    public function document() {
       return $this->hasMany(Document::class, 'user_id');
     }
 }

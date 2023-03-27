@@ -23,7 +23,7 @@ class Etudiant extends Model
   // Pour éviter la redondance, j'ai enlevé le timestamp à Étudiant, et les modifications à cette table seront notés dans la table User
   // public $timestamps = false;
 
-  public function etudiantBelongsToUser()
+  public function user()
   {
     return $this->belongsTo(User::class, 'user_id');
     // caused problems
@@ -33,7 +33,7 @@ class Etudiant extends Model
   // protected $touches = ['user'];
 
 
-  public function etudiantBelongsToVille()
+  public function ville()
   {
     return $this->belongsTo(Ville::class, 'ville_id');
   }

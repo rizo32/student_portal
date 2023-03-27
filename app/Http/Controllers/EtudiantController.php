@@ -22,7 +22,7 @@ class EtudiantController extends Controller
 
   public function index(Request $request)
   {
-    $etudiants = Etudiant::with('etudiantBelongsToUser')->paginate(20);
+    $etudiants = Etudiant::with('user')->paginate(20);
 
     $currentPageItems = $etudiants->items();
     
@@ -46,7 +46,7 @@ class EtudiantController extends Controller
    */
   public function show(Etudiant $etudiant)
   {
-    $etudiant = Etudiant::with('etudiantBelongsToVille', 'etudiantBelongsToUser')
+    $etudiant = Etudiant::with('ville', 'user')
       ->findOrFail($etudiant->user_id);
     return view('etudiant.show', [
       'etudiant' => $etudiant,
@@ -61,7 +61,7 @@ class EtudiantController extends Controller
    */
   public function edit(Etudiant $etudiant)
   {
-    $etudiant = Etudiant::with('etudiantBelongsToVille', 'etudiantBelongsToUser')
+    $etudiant = Etudiant::with('ville', 'user')
       ->findOrFail($etudiant['user_id']);
     $villes = Ville::select()->get();
     return view('etudiant.edit', ['etudiant' => $etudiant, 'villes' => $villes]);
@@ -76,7 +76,7 @@ class EtudiantController extends Controller
    */
   public function update(Request $request, Etudiant $etudiant)
   {
-    $etudiant->etudiantBelongsToUser()->update([
+    $etudiant->user()->update([
       'email' => $request->email
     ]);
     $etudiant->update([
