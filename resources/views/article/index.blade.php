@@ -9,7 +9,6 @@
         <tr>
           <th class="text-center text-dark">@lang('lang.title')</th>
           <th class="text-center text-dark">@lang('lang.author')</th>
-          <th class="text-center text-dark">@lang('lang.extract')</th>
           <th class="text-center text-dark">@lang('lang.creation_date')</th>
           <th class="text-center text-dark">@lang('lang.modification_date')</th>
           <th class="text-center text-dark">@lang('lang.language')</th>
@@ -18,26 +17,42 @@
       <tbody>
 
         @forelse($articles as $article)
-          <tr>
-            <td class="text-center">
-              <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->title }}</a>
-            </td>
-            <td class="text-center">
-              <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->user_id }}</a>
-            </td>
-            <td class="text-center">
-              <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->body }}</a>
-            </td>
-            <td class="text-center">
-              <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->created_at }}</a>
-            </td>
-            <td class="text-center">
-              <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->updated_at }}</a>
-            </td>
-            <td class="text-center">
-              <a href="{{ route('article.show', $article->id) }}" class="text-decoration-none link-light">{{ $article->language }}</a>
-            </td>
-          </tr>
+          @if ($article->articleLanguage->where('language_id', session()->get('locale') == 'fr' ? 2 : 1)->isNotEmpty())
+            <tr>
+              <td class="text-center">
+                <a href="{{ route('article.show', [$article->id, $article->articleLanguage->first()->language_id]) }}"
+                  class="text-decoration-none link-light">{{ optional(
+                      $article->articleLanguage()->where('language_id', session()->get('locale') == 'fr' ? 2 : 1)->first(),
+                  )->title }}</a>
+              </td>
+
+              <td class="text-center">
+                <a href="{{ route('article.show', [$article->id, $article->articleLanguage->first()->language_id]) }}"
+                  class="text-decoration-none link-light">{{ $article->user->etudiant->nom }}</a>
+              </td>
+
+              <td class="text-center">
+                <a href="{{ route('article.show', [$article->id, $article->articleLanguage->first()->language_id]) }}"
+                  class="text-decoration-none link-light">{{ optional(
+                      $article->articleLanguage()->where('language_id', session()->get('locale') == 'fr' ? 2 : 1)->first(),
+                  )->created_at }}</a>
+              </td>
+              <td class="text-center">
+                <a href="{{ route('article.show', [$article->id, $article->articleLanguage->first()->language_id]) }}"
+                  class="text-decoration-none link-light">{{ optional(
+                      $article->articleLanguage()->where('language_id', session()->get('locale') == 'fr' ? 2 : 1)->first(),
+                  )->updated_at }}</a>
+              </td>
+              <td class="text-center">
+                <a href="{{ route('article.show', [$article->id, $article->articleLanguage->first()->language_id]) }}"
+                  class="text-decoration-none link-light">{{ optional(
+                      optional(
+                          $article->articleLanguage()->where('language_id', session()->get('locale') == 'fr' ? 2 : 1)->first(),
+                      )->language,
+                  )->name }}</a>
+              </td>
+            </tr>
+          @endif
 
         @empty
           <tr>@lang('lang.be_creative')!</tr>

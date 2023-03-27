@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', $article->nom)
-@section('header', $article->nom)
+@section('title', $article->articleLanguage->first()->nom)
+@section('header', $article->articleLanguage->first()->nom)
 @section('content')
 
   <div class="col-md-6">
@@ -13,30 +13,33 @@
       </div>
     @endif
 
-    @if ($loggedUser == $article->user_id)
-      <a href="{{ route('article.edit', $article->id) }}" class="text-decoration-none">
+    @if ($loggedUser == $article->articleLanguage->first()->user_id)
+      <a href="{{ route('article.edit', [$article->id, $language_id]) }}" class="text-decoration-none">
     @endif
 
 
     <table class="table table-dark table-striped table-hover">
       <tr>
-        <td class="text-light"><strong>@lang('lang.title') : </strong> {!! $article->title !!}</td>
+        <td class="text-light"><strong>@lang('lang.title') : </strong> {!! $article->articleLanguage->first()->title !!}</td>
       </tr>
       <tr>
-        <td class="text-light"><strong>@lang('lang.author') : </strong> {{ $article->articleBelongsToUser->userHasOneEtudiant->name }}
+        <td class="text-light"><strong>@lang('lang.author') : </strong> {{ $article->user->etudiant->nom }}
         </td>
       </tr>
       <tr>
-        <td class="text-light"><strong>@lang('lang.content') : </strong> {{ $article->body }}</td>
-      </tr>
-      <tr>
-        <td class="text-light"><strong>Date de création : </strong> {{ $article->creation_date }}</td>
+        <td class="text-light"><strong>Date de création : </strong> {{ $article->articleLanguage->first()->created_at }}
+        </td>
         </p>
       <tr>
-        <td class="text-light"><strong>@lang('lang.modification_date') : </strong> {{ $article->modification_date }}</td>
+        <td class="text-light"><strong>@lang('lang.modification_date') : </strong> {{ $article->articleLanguage->first()->updated_at }}
+        </td>
       </tr>
       <tr>
-        <td class="text-light"><strong>@lang('lang.language') : </strong> {{ $article->language }}</td>
+        <td class="text-light"><strong>@lang('lang.language') : </strong>
+          {{ $article->articleLanguage->first()->language->name }}</td>
+      </tr>
+      <tr>
+        <td class="text-light"><strong>@lang('lang.content') : </strong> {{ $article->articleLanguage->first()->body }}</td>
       </tr>
     </table>
     @if ($loggedUser == $article->user_id)
@@ -69,7 +72,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Oh non!</button>
-          <form action="{{ route('article.delete', $article) }}" method="post">
+          <form action="{{ route('article.delete', [$article->id, $article->articleLanguage->first()->language_id]) }}" method="post">
             @csrf
             @method('delete')
             <input type="submit" class="btn btn-danger" value="Sûr comme un citron">
