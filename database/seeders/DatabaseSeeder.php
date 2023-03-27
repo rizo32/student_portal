@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             EtudiantTableSeeder::class,
             LanguageTableSeeder::class,
-            ArticleTableSeeder::class,
-            ArticleLanguageTableSeeder::class
+            // ArticleTableSeeder::class,
+            // ArticleLanguageTableSeeder::class
         ]);
     }
 }
