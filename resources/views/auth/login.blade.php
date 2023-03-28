@@ -5,7 +5,7 @@
 
   <div class="col-md-8">
     <form method="POST">
-      {{-- <form action="{{ route('etudiant.auth', $user->id) }}" method="POST"> --}}
+      {{-- <form action="{{ route('student.auth', $user->id) }}" method="POST"> --}}
       @csrf
       @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show">

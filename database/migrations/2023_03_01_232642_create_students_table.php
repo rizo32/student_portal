@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEtudiantsTable extends Migration
+class CreateStudentsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -15,13 +15,13 @@ class CreateEtudiantsTable extends Migration
   {
     DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-    Schema::create('etudiants', function (Blueprint $table) {
+    Schema::create('students', function (Blueprint $table) {
       $table->foreignId('user_id')->constrained()->onDelete('cascade');
-      $table->string('nom', 50);
-      $table->string('adresse', 100)->nullable();
+      $table->string('name', 50);
+      $table->string('address', 100)->nullable();
       $table->string('phone', 20)->nullable();
-      $table->date('date_naissance')->nullable();
-      $table->foreignId('ville_id')->constrained()->onDelete('cascade');
+      $table->date('birthday')->nullable();
+      $table->foreignId('city_id')->constrained()->onDelete('cascade');
       $table->timestamps();
 
       $table->primary('user_id');
@@ -38,6 +38,6 @@ class CreateEtudiantsTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('etudiants');
+    Schema::dropIfExists('students');
   }
 }

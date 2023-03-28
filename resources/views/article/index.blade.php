@@ -28,7 +28,7 @@
 
               <td class="text-center">
                 <a href="{{ route('article.show', [$article->id, $article->articleLanguage->first()->language_id]) }}"
-                  class="text-decoration-none link-light">{{ $article->user->etudiant->nom }}</a>
+                  class="text-decoration-none link-light">{{ $article->user->student->name }}</a>
               </td>
 
               <td class="text-center">

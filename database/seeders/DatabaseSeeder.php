@@ -7,15 +7,15 @@ use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run()
-    {
-        $this->call([
-            VilleTableSeeder::class,
-            UserTableSeeder::class,
-            EtudiantTableSeeder::class,
-            LanguageTableSeeder::class,
-            // ArticleTableSeeder::class,
-            // ArticleLanguageTableSeeder::class
-        ]);
-    }
+  public function run()
+  {
+    $this->call([
+      CityTableSeeder::class,
+      UserTableSeeder::class,
+      StudentTableSeeder::class,
+      LanguageTableSeeder::class,
+      // ArticleTableSeeder::class,
+      // ArticleLanguageTableSeeder::class
+    ]);
+  }
 }

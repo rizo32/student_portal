@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', $article->articleLanguage->first()->nom)
-@section('header', $article->articleLanguage->first()->nom)
+@section('title', $article->articleLanguage->first()->name)
+@section('header', $article->articleLanguage->first()->name)
 @section('content')
 
   <div class="col-md-6">
@@ -23,7 +23,7 @@
         <td class="text-light"><strong>@lang('lang.title') : </strong> {!! $article->articleLanguage->first()->title !!}</td>
       </tr>
       <tr>
-        <td class="text-light"><strong>@lang('lang.author') : </strong> {{ $article->user->etudiant->nom }}
+        <td class="text-light"><strong>@lang('lang.author') : </strong> {{ $article->user->student->name }}
         </td>
       </tr>
       <tr>
@@ -72,7 +72,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Oh non!</button>
-          <form action="{{ route('article.delete', [$article->id, $article->articleLanguage->first()->language_id]) }}" method="post">
+          <form action="{{ route('article.delete', [$article->id, $article->articleLanguage->first()->language_id]) }}"
+            method="post">
             @csrf
             @method('delete')
             <input type="submit" class="btn btn-danger" value="Sûr comme un citron">

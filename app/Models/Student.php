@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Etudiant extends Model
+class Student extends Model
 {
   use HasFactory;
 
@@ -13,11 +13,11 @@ class Etudiant extends Model
 
   protected $fillable = [
     'user_id',
-    'nom',
-    'adresse',
+    'name',
+    'address',
     'phone',
-    'date_naissance',
-    'ville_id'
+    'birthday',
+    'city_id'
   ];
 
   // Pour éviter la redondance, j'ai enlevé le timestamp à Étudiant, et les modifications à cette table seront notés dans la table User
@@ -33,8 +33,8 @@ class Etudiant extends Model
   // protected $touches = ['user'];
 
 
-  public function ville()
+  public function city()
   {
-    return $this->belongsTo(Ville::class, 'ville_id');
+    return $this->belongsTo(City::class, 'city_id');
   }
 }
