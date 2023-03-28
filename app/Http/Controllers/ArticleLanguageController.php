@@ -14,7 +14,7 @@ class ArticleController extends Controller
   /**
    * Display a listing of the resource.
    *
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
   public function index(Request $request)
   {
@@ -34,7 +34,7 @@ class ArticleController extends Controller
   /**
    * Display a listing of the resource.
    *
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
   public function userArticle(Request $request)
   {
@@ -59,7 +59,7 @@ class ArticleController extends Controller
   /**
    * Show the form for creating a new resource.
    *
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
   public function create()
   {
@@ -72,7 +72,7 @@ class ArticleController extends Controller
    * Store a newly created resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
   public function store(Request $request)
   {
@@ -137,7 +137,7 @@ class ArticleController extends Controller
    * Display the specified resource.
    *
    * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
   public function show(Article $article, $language_id)
   {
@@ -153,16 +153,16 @@ class ArticleController extends Controller
    * Show the form for editing the specified resource.
    *
    * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
   public function edit($article_id, $language_id)
   {
     // Find the ArticleLanguage model based on the article_id and language_id
-    
+
     $articleLanguage = ArticleLanguage::where('article_id', $article_id)
-        ->where('language_id', $language_id)
-        ->first();
-        // dd($articleLanguage);
+      ->where('language_id', $language_id)
+      ->first();
+    // dd($articleLanguage);
 
     return view('article.edit', compact('articleLanguage'));
   }
@@ -172,7 +172,7 @@ class ArticleController extends Controller
    *
    * @param  \Illuminate\Http\Request  $request
    * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
   public function update(Request $request, $article_id, $language_id)
   {
@@ -180,22 +180,22 @@ class ArticleController extends Controller
       'title' => 'required|max:255',
       'body' => 'required',
       'article_id' => [
-          'required',
-          Rule::unique('article_languages')->where(function ($query) use ($language_id) {
-              return $query->where('language_id', $language_id);
-          })->ignore($article_id, 'article_id'),
+        'required',
+        Rule::unique('article_languages')->where(function ($query) use ($language_id) {
+          return $query->where('language_id', $language_id);
+        })->ignore($article_id, 'article_id'),
       ],
       'language_id' => 'required|exists:languages,id',
-  ];
+    ];
 
-  $validatedData = $request->validate($rules);
-  
+    $validatedData = $request->validate($rules);
+
     // dd($request);
     $articleLanguage = ArticleLanguage::where('article_id', $article_id)
-    ->where('language_id', $language_id);
+      ->where('language_id', $language_id);
     // ->firstOrFail();
 
-        // $articleLanguage->fill($request->only(['title', 'body']));
+    // $articleLanguage->fill($request->only(['title', 'body']));
 
 
     $articleLanguage->update([
@@ -210,7 +210,7 @@ class ArticleController extends Controller
    * Remove the specified resource from storage.
    *
    * @param  int  $id
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
   public function destroy(Article $article, $language_id)
   {
