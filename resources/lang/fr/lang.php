@@ -3,7 +3,7 @@ return [
 
   // general
   'welcome' => 'Bienvenue',
-  'success' => 'Succès',
+  'success' => 'Succès!',
   'edit' => 'Modifier',
   'submit' => 'Allez hop, cascade',
   'delete' => 'Supprimer',
@@ -17,6 +17,8 @@ return [
   'register_user' => 'Enregistrer un utilisateur',
   'email' => 'Courriel',
   'password' => 'Mot de passe',
+  'pass_requirements' => 'doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre',
+  'password_confirm' => 'Encore!',
   'sign_up' => 'Enregistrer',
   'provide_infos' => 'Veuillez saisir vos informations',
   'edit_infos' => 'Vous pouvez modifier les informations',
@@ -24,7 +26,7 @@ return [
 
   // étudiant
   'name' => 'Nom',
-  'phone' => 'Téléphone',
+  'phone' => "Téléphone (mettez les dix chiffres, c'est tout)",
   'birthday' => 'Date de naissance',
   'address' => 'Adresse',
   'city' => 'Ville',

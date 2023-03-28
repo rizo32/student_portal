@@ -3,7 +3,7 @@ return [
 
   // general
   'welcome' => 'Welcome',
-  'success' => 'Success',
+  'success' => 'Success!',
   'edit' => 'Edit',
   'submit' => "It's a go",
   'delete' => 'Delete',
@@ -17,6 +17,8 @@ return [
   'register_user' => 'Register User',
   'email' => 'Email',
   'password' => 'Password',
+  'password_confirm' => 'One more time!',
+  'pass_requirements' => 'must contain at least one lowercase letter, at least one uppercase letter, and at least one number',
   'sign_up' => 'Sign up',
   'provide_infos' => 'Please enter your informations',
   'edit_infos' => 'You can edit the informations',
@@ -24,7 +26,7 @@ return [
 
   // students
   'name' => 'Name',
-  'phone' => 'Phone',
+  'phone' => 'Phone (just put the 10 numbers!)',
   'birthday' => 'Birthday',
   'address' => 'Address',
   'city' => 'City',
