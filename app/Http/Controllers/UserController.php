@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateStudentRequest;
 use App\Models\User;
-use App\Models\Etudiant;
-use App\Models\Ville;
-// use App\Models\Auth;
-use Illuminate\Http\Request;
+use App\Models\City;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,116 +12,47 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
   /**
    * Show the form for creating a new resource.
    *
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
   public function create()
   {
-    $villes = Ville::select()->get();
-    $view = view('user.create', ['villes' => $villes]);
-    return response($view);
+    $cities = City::all();
+    $view = view('user.create', compact('cities'));
+    return $view;
   }
 
   /**
    * Store a newly created resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
-  public function store(Request $request)
+  public function store(CreateStudentRequest $request)
   {
-
-    // si la création d'étudiant échoue, je veux qu'user soit rollback, et vice-versa
-    DB::beginTransaction();
-
-    // peut-être pas nécéssaire de faire le try catch si les validations sont explicites
-    try {
-
-      $request->validate([
-        'email' => 'required|email|unique:users',
-        'password' => 'min:6'
-      ]);
+    // ensures that all operations are either committed or rolled back as a single unit of work
+    return DB::transaction(function () use ($request) {
 
       $user = User::create([
         'email' => $request->email,
         'password' => Hash::make($request->password)
       ]);
-      
-      $etudiant = Etudiant::with('user')->create([
-        'user_id' => $user['id'],
-        'nom' => $request->nom,
-        'ville_id' => $request->ville_id,
-        'adresse' => $request->adresse,
-        'date_naissance' => $request->date_naissance,
+
+      $user->student()->create([
+        'name' => $request->name,
+        'city_id' => $request->city_id,
+        'address' => $request->address,
+        'birthday' => $request->birthday,
         'phone' => $request->phone
       ]);
-      DB::commit(); // ça marche!
-    } catch (\Exception $e) {
-      DB::rollback(); // Abort! Abort!
-      throw $e;
-    }
-    Auth::login($user);
 
-    
-    return redirect(route('welcome'))->withSuccess(trans('lang.success'));
+      Auth::login($user);
 
-    // return redirect(route('etudiant.show', $etudiant->user_id));
+      return redirect(route('welcome'))->withSuccess(
+        trans('lang.success')
+      );
+    });
   }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
 }

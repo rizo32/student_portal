@@ -30,51 +30,49 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
           <span class="navbar-toggler-icon"></span>
         </button>
-        @if($auth)
-        <p>@lang('lang.hello'), {{ $auth->etudiant->nom }}!</p>
+        @if ($auth)
+          <p>@lang('lang.hello'), {{ $auth->student->name }}!</p>
         @else
-        <p>@lang('lang.hello'), @lang('lang.guest')!</p>
+          <p>@lang('lang.hello'), @lang('lang.guest')!</p>
         @endif
         <div class="collapse navbar-collapse" id="navmenu">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a href="{{ route('etudiant.index') }}"
-                class="nav-link {{ request()->routeIs('etudiant.index') ? 'active' : '' }}">@lang('lang.our_students')</a>
+              <a href="{{ route('student.index') }}"
+                class="nav-link {{ request()->routeIs('student.index') ? 'active' : '' }}">@lang('lang.our_students')</a>
             </li>
             @if (!$auth)
-            <li class="nav-item">
-              <a href="{{ route('user.create') }}"
-                class="nav-link {{ request()->routeIs('user.create') ? 'active' : '' }}">@lang('lang.admission')</a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('login') }}"
-                class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}">@lang('lang.login')</a>
-            </li>
-            @else
-            <li class="nav-item">
-              <a href="{{ route('article.index') }}"
-                class="nav-link {{ request()->routeIs('article.index') ? 'active' : '' }}">@lang('lang.articles')</a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('article.userArticle') }}"
-                class="nav-link {{ request()->routeIs('article.userArticle') ? 'active' : '' }}">@lang('lang.my_articles')</a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('article.create') }}"
-                class="nav-link {{ request()->routeIs('article.create') ? 'active' : '' }}">@lang('lang.write')</a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('logout') }}"
-                class="nav-link">@lang('lang.logout')</a>
-            </li>
-            @endif
-            <li class="nav-item">
-              <a class="nav-link @if($locale=='en') active @endif" 
-             href="/lang/en">EN</a>
+              <li class="nav-item">
+                <a href="{{ route('user.create') }}"
+                  class="nav-link {{ request()->routeIs('user.create') ? 'active' : '' }}">@lang('lang.admission')</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link @if($locale=='fr') active @endif" href="/lang/fr">FR</a>
+                <a href="{{ route('login') }}"
+                  class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}">@lang('lang.login')</a>
               </li>
+            @else
+              <li class="nav-item">
+                <a href="{{ route('article.index') }}"
+                  class="nav-link {{ request()->routeIs('article.index') ? 'active' : '' }}">@lang('lang.articles')</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('article.userArticle') }}"
+                  class="nav-link {{ request()->routeIs('article.userArticle') ? 'active' : '' }}">@lang('lang.my_articles')</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('article.create') }}"
+                  class="nav-link {{ request()->routeIs('article.create') ? 'active' : '' }}">@lang('lang.write')</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('logout') }}" class="nav-link">@lang('lang.logout')</a>
+              </li>
+            @endif
+            <li class="nav-item">
+              <a class="nav-link @if ($locale == 'en') active @endif" href="/lang/en">EN</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link @if ($locale == 'fr') active @endif" href="/lang/fr">FR</a>
+            </li>
           </ul>
         </div>
       </div>
