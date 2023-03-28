@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EtudiantController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomAuthController;
@@ -21,20 +21,20 @@ use App\Http\Controllers\LocalizationController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 })->name('welcome');
 
 
-// Etudiant
-Route::get('etudiant', [EtudiantController::class, 'index'])->name('etudiant.index')->middleware('auth');
+// Student
+Route::get('student', [StudentController::class, 'index'])->name('student.index')->middleware('auth');
 
-Route::get('etudiant/{etudiant}', [EtudiantController::class, 'show'])->name('etudiant.show')->middleware('auth');
+Route::get('student/{student}', [StudentController::class, 'show'])->name('student.show')->middleware('auth');
 
-Route::get('etudiant-edit/{etudiant}', [EtudiantController::class, 'edit'])->name('etudiant.edit')->middleware('auth');
+Route::get('student-edit/{student}', [StudentController::class, 'edit'])->name('student.edit')->middleware('auth');
 
-Route::put('etudiant-edit/{etudiant}', [EtudiantController::class, 'update'])->name('etudiant.update')->middleware('auth');
+Route::put('student-edit/{student}', [StudentController::class, 'update'])->name('student.update')->middleware('auth');
 
-Route::delete('etudiant-edit/{etudiant}', [EtudiantController::class, 'destroy'])->name('etudiant.delete')->middleware('auth');
+Route::delete('student-edit/{student}', [StudentController::class, 'destroy'])->name('student.delete')->middleware('auth');
 
 // User
 Route::get('user-create', [UserController::class, 'create'])->name('user.create');
