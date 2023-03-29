@@ -13,14 +13,19 @@ class CreateDocumentsTable extends Migration
    */
   public function up()
   {
+    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    
     Schema::create('documents', function (Blueprint $table) {
-      $table->string('title', 50);
+      $table->id();
+      $table->string('title_en', 50)->nullable();
+      $table->string('title_fr', 50)->nullable();
       $table->foreignId('user_id')->constrained()->onDelete('cascade');
       $table->string('path', 100);
-      $table->string('extension', 10);
-      $table->string('language', 20);
+      $table->foreignId('format_id')->constrained()->onDelete('cascade');
       $table->timestamps();
     });
+
+    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
   }
 
   /**

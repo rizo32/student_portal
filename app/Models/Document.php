@@ -10,15 +10,20 @@ class Document extends Model
     use HasFactory;
 
     protected $fillable = [
-      'title',
+      'title_en',
+      'title_fr',
       'user_id',
       'path',
-      'extension',
-      'langue'
+      'format_id',
   ];
 
   public function user()
   {
     return $this->belongsTo(User::class, 'user_id');
+  }
+
+  public function format()
+  {
+    return $this->belongsTo(Format::class);
   }
 }
