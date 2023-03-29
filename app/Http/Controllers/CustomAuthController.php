@@ -41,7 +41,6 @@ class CustomAuthController extends Controller
       'email' => 'required|email|unique:users',
       'password' => 'min:6'
     ]);
-    //redirect->back()->withErrors([])->withInput
 
     $user = new User;
     $user->fill($request->all());
@@ -49,51 +48,6 @@ class CustomAuthController extends Controller
     $user->save();
 
     return redirect()->back()->withSuccess(trans('lang.success'));
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  \App\Models\User  $user
-   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-   */
-  public function show(User $user)
-  {
-    //
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  \App\Models\User  $user
-   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-   */
-  public function edit(User $user)
-  {
-    //
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Models\User  $user
-   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-   */
-  public function update(Request $request, User $user)
-  {
-    //
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  \App\Models\User  $user
-   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-   */
-  public function destroy(User $user)
-  {
-    //
   }
 
   public function userList()
@@ -111,17 +65,21 @@ class CustomAuthController extends Controller
 
     $credentials = $request->only('email', 'password');
 
-    if (!Auth::validate($credentials)):
-      return redirect()->back()->withErrors(trans('auth.password'))->withInput();
-    endif;
+    if (Auth::attempt($credentials)) {
+      return redirect()->intended(route('welcome'));
+    }
 
-    $user = Auth::getProvider()->retrieveByCredentials($credentials);
+    return redirect()->back()->withErrors(trans('auth.password'))->withInput();
 
-    Auth::login($user);
+    // if (!Auth::validate($credentials)):
+    //   return redirect()->back()->withErrors(trans('auth.password'))->withInput();
+    // endif;
 
-    return redirect()->intended(route('welcome'));
+    // $user = Auth::getProvider()->retrieveByCredentials($credentials);
 
-    // return  $credentials;
+    // Auth::login($user);
+
+    // return redirect()->intended(route('welcome'));
   }
 
   public function logout()

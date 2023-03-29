@@ -4,13 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EditStudentRequest;
 use App\Models\Student;
-use App\Models\User;
 use App\Models\City;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
 {
@@ -55,13 +50,16 @@ class StudentController extends Controller
    * Show the form for editing the specified resource.
    *
    * @param  \App\Models\Student  $blogPost
-   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+   * @return \Illuminate\Contracts\View\View
    */
   public function edit(Student $student)
   {
-    $student = $student->load('city', 'user');
     $cities = City::all();
-    return view('student.edit', compact('student', 'cities'));
+
+    return view('student.edit', [
+        'student' => $student->load('city', 'user'),
+        'cities' => $cities,
+    ]);
   }
 
   /**
@@ -69,11 +67,10 @@ class StudentController extends Controller
    *
    * @param  \Illuminate\Http\Request  $request
    * @param  \App\Models\Student  $blogPost
-   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+   * @return \Illuminate\Http\RedirectResponse
    */
   public function update(EditStudentRequest $request, Student $student)
   {
-
     $student->update([
       'name' => $request->name,
       'city_id' => $request->city_id,
@@ -89,7 +86,7 @@ class StudentController extends Controller
    * Remove the specified resource from storage.
    *
    * @param  \App\Models\Student  $blogPost
-   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+   * @return \Illuminate\Http\RedirectResponse
    */
   public function destroy(Student $student)
   {

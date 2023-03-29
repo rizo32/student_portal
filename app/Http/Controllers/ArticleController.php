@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-// use App\Models\Category;
 use App\Models\ArticleLanguage;
-use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -19,7 +17,8 @@ class ArticleController extends Controller
    */
   public function index(Request $request)
   {
-    $articles = Article::select()->paginate(20);
+    $articles = Article::paginate(20);
+    // $articles = Article::select()->paginate(20);
 
     $currentPageItems = $articles->items();
 
@@ -64,8 +63,6 @@ class ArticleController extends Controller
    */
   public function create()
   {
-    // $categories = Category::selectCategory();
-
     return view('article.create');
   }
 
@@ -77,13 +74,14 @@ class ArticleController extends Controller
    */
   public function store(Request $request)
   {
-    // dd($request);
     $loggedUser = Auth::User()->id;
 
     // validate that at least one title is filled
     $request->validate([
       'title_en' => 'required_without_all:title_fr',
+      'body_en' => 'required_if:title_en',
       'title_fr' => 'required_without_all:title_en',
+      'body_fr' => 'required_if:title_fr',
     ], [
         'title_en.required_without_all' => __('validation.required', ['attribute' => __('lang.title')]),
         'body_en.required_if' => __('validation.required', ['attribute' => __('lang.content')]),
@@ -94,12 +92,7 @@ class ArticleController extends Controller
     ]);
 
     if ($request->title_en) {
-
-      $request->validate([
-        'body_en' => 'required',
-      ]);
-
-      $articleLanguage = ArticleLanguage::create([
+      ArticleLanguage::create([
         'title' => $request->title_en,
         'body' => $request->body_en,
         'language_id' => 1,
@@ -109,15 +102,11 @@ class ArticleController extends Controller
 
     if ($request->title_fr) {
 
-      $request->validate([
-        'body_fr' => 'required',
-      ]);
-
       // $article = Article::create([
       //   'user_id' => $loggedUser,
       // ]);
 
-      $articleLanguage = ArticleLanguage::create([
+      ArticleLanguage::create([
         'title' => $request->title_fr,
         'body' => $request->body_fr,
         'language_id' => 2,
@@ -143,9 +132,7 @@ class ArticleController extends Controller
   public function show(Article $article, $language_id)
   {
 
-    // dd($language_id);
-    // $loggedUser = Auth::User()->id;
-    $loggedUser = 0;
+    $loggedUser = Auth::User()->id;
 
     return view('article.show', ['article' => $article, 'language_id' => $language_id, 'loggedUser' => $loggedUser]);
   }
@@ -163,7 +150,6 @@ class ArticleController extends Controller
     $articleLanguage = ArticleLanguage::where('article_id', $article_id)
       ->where('language_id', $language_id)
       ->first();
-    // dd($articleLanguage);
 
     return view('article.edit', compact('articleLanguage'));
   }
@@ -191,10 +177,9 @@ class ArticleController extends Controller
 
     $validatedData = $request->validate($rules);
 
-    // dd($request);
     $articleLanguage = ArticleLanguage::where('article_id', $article_id)
-      ->where('language_id', $language_id);
-    // ->firstOrFail();
+      ->where('language_id', $language_id)
+    ->firstOrFail();
 
     // $articleLanguage->fill($request->only(['title', 'body']));
 
@@ -204,7 +189,7 @@ class ArticleController extends Controller
       'body' => $request->body,
     ], ['article_id' => $article_id, 'language_id' => $language_id]);
 
-    return redirect(route('article.userArticle'))->withSuccess('Article mis à jour avec success');
+    return redirect(route('article.userArticle'))->withSuccess(trans('lang.success'));
   }
 
   /**

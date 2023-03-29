@@ -142,9 +142,7 @@ class ArticleController extends Controller
   public function show(Article $article, $language_id)
   {
 
-    // dd($language_id);
-    // $loggedUser = Auth::User()->id;
-    $loggedUser = 0;
+    $loggedUser = Auth::User()->id;
 
     return view('article.show', ['article' => $article, 'language_id' => $language_id, 'loggedUser' => $loggedUser]);
   }

@@ -72,7 +72,7 @@
           @enderror
         </div>
         <div class="d-flex justify-content-end gap-2">
-          <input type="submit" class="btn btn-primary" value="It's a go!">
+          <input type="submit" class="btn btn-primary" value="@lang('lang.submit')">
           <a href="{{ route('student.index') }}" class="btn btn-secondary link-dark">@lang('lang.back')</a>
         </div>
       </div>
