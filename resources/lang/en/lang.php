@@ -12,6 +12,7 @@ return [
   'are_you_sure' => 'Are you sure you want to remove',
   'no' => 'Mhh...',
   'confirm' => 'Like a lemon',
+  'optional' => 'optional',
 
   // user
   'register_user' => 'Register User',
@@ -46,7 +47,6 @@ return [
   'hello' => 'Hello',
   'guest' => 'dear',
   
-
   // article
   'be_creative' => 'Be creative',
   'content' => 'Content',
@@ -63,6 +63,14 @@ return [
   'modification_article' => "Edit your article",
   'write_article' => "Write your article",
 
+  // document
+  'document' => 'Document',
+  'documents' => 'Documents',
+  'my_documents' => 'My uploads',
+  'upload' => 'Upload',
+  'title_doc' => "A name you haven't used before",
+  'bad_format' => 'Please upload only pdf, doc or zip',
+  'name_alt' => 'Alternative language name',
 
   // errors
   '404_message' => '404 Error: Page Not Found',

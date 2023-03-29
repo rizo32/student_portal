@@ -12,6 +12,7 @@ return [
   'are_you_sure' => 'Êtes-vous sûr que vous souhaitez retirer',
   'no' => 'Oh non',
   'confirm' => 'Sûr comme un citron',
+  'optional' => 'optionnel',
 
   // user
   'register_user' => 'Enregistrer un utilisateur',
@@ -61,6 +62,15 @@ return [
   'the_articles' => 'Les articles',
   'modification_article' => "Modification d'article",
   'write_article' => "Écriture d'article",
+
+  // document
+  'document' => 'Document',
+  'documents' => 'Documents',
+  'my_documents' => 'Mes partages',
+  'upload' => 'Partager',
+  'title_doc' => "Un nom que vous n'avez pas utilisez avant",
+  'bad_format' => 'Veuillez téléverser un format pdf, doc ou zip',
+  'name_alt' => 'Nom dans la langue alternative',
 
   // errors
   '404_message' => "Erreur 404: La page n'est pas disponible",
