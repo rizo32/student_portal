@@ -24,7 +24,7 @@ class CreateStudentRequest extends FormRequest
   public function rules()
   {
     return [
-      'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:2|max:50',
+      'name' => 'required|regex:/^[a-zA-Z\s.]+$/|min:2|max:50',
       'address' => 'required|max:255',
       'phone' => 'required|numeric|regex:/^[0-9]{10}$/',
       'email' => 'required|email|max:255|unique:users',
