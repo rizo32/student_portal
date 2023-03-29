@@ -17,8 +17,8 @@ class DocumentFactory extends Factory
           'title' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
           'user_id' => $this->faker->unique()->numberBetween($min = 1, $max = 100),
           'path' => 'public/uploads/',
-          'extension' => $this->faker->randomElement(['zip', 'jpg', 'webp', 'doc']),
-          'language' => $this->faker->randomElement(['FR', 'EN'])
+          'extension_id' => $this->faker->numberBetween($min = 1, $max = 3),
+          'language' => $this->faker->numberBetween($min = 1, $max = 2)
         ];
     }
 }
