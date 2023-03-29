@@ -16,7 +16,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" crossorigin="anonymous"
     integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{{ asset('scss/app.css') }}">
-  {{-- ne laisser que le CSS dans resources! --}}
 </head>
 
 <body class="bg-dark">
@@ -61,14 +60,29 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('article.create') }}"
-                  class="nav-link {{ request()->routeIs('article.create') ? 'active' : '' }}">@lang('lang.write')</a>
+                class="nav-link {{ request()->routeIs('article.create') ? 'active' : '' }}">@lang('lang.write')</a>
               </li>
+              <span class="border-end border-dark mx-3"></span>
+              <li class="nav-item">
+                <a href="{{ route('document.index') }}"
+                  class="nav-link {{ request()->routeIs('document.index') ? 'active' : '' }}">@lang('lang.documents')</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('document.userDocument') }}"
+                  class="nav-link {{ request()->routeIs('document.userDocument') ? 'active' : '' }}">@lang('lang.my_documents')</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('document.create') }}"
+                class="nav-link {{ request()->routeIs('document.create') ? 'active' : '' }}">@lang('lang.upload')</a>
+              </li>
+              <span class="border-end border-dark mx-3"></span>
               <li class="nav-item">
                 <a href="{{ route('logout') }}" class="nav-link">@lang('lang.logout')</a>
               </li>
+              <span class="border-end border-dark mx-3"></span>
             @endif
             <li class="nav-item">
-              <a class="nav-link @if ($locale == 'en') active @endif" href="/lang/en">EN</a>
+              <a class="nav-link @if ($locale != 'fr') active @endif" href="/lang/en">EN</a>
             </li>
             <li class="nav-item">
               <a class="nav-link @if ($locale == 'fr') active @endif" href="/lang/fr">FR</a>
@@ -93,9 +107,7 @@
 
       @yield('content')
     </div>
-    <!--/row justify-content-center mt-4-->
   </main>
-  <!--/container-->
   <footer class="container mb-3">
     <div class="text-secondary text-center">&copy; <i>@lang('lang.copyrights')rizorizo.art</i></div>
   </footer>
