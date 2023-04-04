@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\ArticleLanguage;
-use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -62,8 +61,6 @@ class ArticleController extends Controller
    */
   public function create()
   {
-    // $categories = Category::selectCategory();
-
     return view('article.create');
   }
 
@@ -189,8 +186,8 @@ class ArticleController extends Controller
 
     // dd($request);
     $articleLanguage = ArticleLanguage::where('article_id', $article_id)
-      ->where('language_id', $language_id);
-    // ->firstOrFail();
+      ->where('language_id', $language_id)
+      ->firstOrFail();
 
     // $articleLanguage->fill($request->only(['title', 'body']));
 

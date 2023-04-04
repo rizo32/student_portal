@@ -18,7 +18,6 @@ class ArticleController extends Controller
   public function index(Request $request)
   {
     $articles = Article::paginate(20);
-    // $articles = Article::select()->paginate(20);
 
     $currentPageItems = $articles->items();
 
@@ -77,15 +76,16 @@ class ArticleController extends Controller
     $loggedUser = Auth::User()->id;
 
     // validate that at least one title is filled
-    $request->validate([
-      'title_en' => 'required_without_all:title_fr',
-      'body_en' => 'required_if:title_en',
-      'title_fr' => 'required_without_all:title_en',
-      'body_fr' => 'required_if:title_fr',
-    ], [
-        'title_en.required_without_all' => __('validation.required', ['attribute' => __('lang.title')]),
-        'body_en.required_if' => __('validation.required', ['attribute' => __('lang.content')]),
-      ]);
+$request->validate([
+    'title_en' => 'required_without_all:title_fr',
+    'body_en' => 'required_if:title_en,!=,',
+    'title_fr' => 'required_without_all:title_en',
+    'body_fr' => 'required_if:title_fr,!=,',
+], [
+    'title_en.required_without_all' => __('validation.required', ['attribute' => __('lang.title')]),
+    'body_en.required_if' => __('validation.required', ['attribute' => __('lang.content')]),
+]);
+
 
     $article = Article::create([
       'user_id' => $loggedUser,
@@ -101,11 +101,6 @@ class ArticleController extends Controller
     }
 
     if ($request->title_fr) {
-
-      // $article = Article::create([
-      //   'user_id' => $loggedUser,
-      // ]);
-
       ArticleLanguage::create([
         'title' => $request->title_fr,
         'body' => $request->body_fr,
@@ -178,8 +173,8 @@ class ArticleController extends Controller
     $validatedData = $request->validate($rules);
 
     $articleLanguage = ArticleLanguage::where('article_id', $article_id)
-      ->where('language_id', $language_id)
-    ->firstOrFail();
+      ->where('language_id', $language_id);
+    // ->firstOrFail();
 
     // $articleLanguage->fill($request->only(['title', 'body']));
 
