@@ -69,7 +69,7 @@
             </td>
             <td class="text-center">
               <a href="{{ route('document.download', $document->id) }}" class="text-decoration-none link-light">
-                <i class="fa-solid fa-rotate-right text-primary"></i>
+                <i class="fa-solid fa-arrow-down text-primary"></i>
               </a>
             </td>
             <td class="text-center">
