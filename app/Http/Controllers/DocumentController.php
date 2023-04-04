@@ -24,7 +24,17 @@ class DocumentController extends Controller
     return view('document.create', compact('formats', 'languages'));
   }
 
+  public function show(Document $document)
+  {
+      $path = $document->path;
 
+      if (!Storage::disk('public')->exists($path)) {
+          return redirect()->back()->withErrors(['message' => __('lang.file_not_found')]);
+      }
+
+      // Open the file in the browser
+      return response()->file(storage_path('app/public/' . $path));
+  }
 
 
   public function store(Request $request)
