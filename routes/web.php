@@ -83,6 +83,8 @@ Route::put('document-edit/{article_id}', [DocumentController::class, 'update'])
   ->name('document.update')->middleware('auth');
 Route::delete('document-edit/{article}', [DocumentController::class, 'destroy'])
   ->name('document.delete')->middleware('auth');
+Route::get('/download/{document}/download', [DocumentController::class, 'download'])
+  ->name('document.download')->middleware('auth');
 
 // Localization
 Route::get('/lang/{locale}', [LocalizationController::class, 'index'])
