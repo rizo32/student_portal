@@ -68,9 +68,14 @@ return [
   'documents' => 'Documents',
   'my_documents' => 'Mes partages',
   'upload' => 'Partager',
+  'download' => 'Télécharger',
   'title_doc' => "Un nom que vous n'avez pas utilisez avant",
+  'format' => 'format',
   'bad_format' => 'Veuillez téléverser un format pdf, doc ou zip',
-  'name_alt' => 'Nom dans la langue alternative',
+  'local_name' => 'Nom (en français)',
+  'name_alt' => 'Nom (en anglais',
+  'no_title' => 'Non défini dans cette langue',
+  'file_not_found' => "Le fichier demandé n'a pas été trouvé",
 
   // errors
   '404_message' => "Erreur 404: La page n'est pas disponible",

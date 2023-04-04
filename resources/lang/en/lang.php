@@ -67,10 +67,15 @@ return [
   'document' => 'Document',
   'documents' => 'Documents',
   'my_documents' => 'My uploads',
+  'download' => 'Download',
   'upload' => 'Upload',
   'title_doc' => "A name you haven't used before",
+  'format' => 'format',
   'bad_format' => 'Please upload only pdf, doc or zip',
-  'name_alt' => 'Alternative language name',
+  'local_name' => 'Name (in english)',
+  'name_alt' => 'Name (in french)',
+  'no_title' => 'Undefined in this language',
+  'file_not_found' => 'The found was not found',
 
   // errors
   '404_message' => '404 Error: Page Not Found',
