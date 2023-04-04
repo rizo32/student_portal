@@ -13,7 +13,8 @@
       </div>
     @endif
 
-    @if ($loggedUser == $article->articleLanguage->first()->user_id)
+    {{-- Seulement l'auteur peut modifier --}}
+    @if ($loggedUser == $article->user_id)
       <a href="{{ route('article.edit', [$article->id, $language_id]) }}" class="text-decoration-none">
     @endif
 
