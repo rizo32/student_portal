@@ -73,13 +73,13 @@ Route::get('user-document', [DocumentController::class, 'userDocument'])
   ->name('document.userDocument')->middleware('auth');
 Route::get('document/{document}', [DocumentController::class, 'show'])
   ->name('document.show')->middleware('auth');
-Route::get('document-edit/{document_id}', [DocumentController::class, 'edit'])
+Route::get('document-edit/{document}', [DocumentController::class, 'edit'])
   ->name('document.edit')->middleware('auth');
 Route::get('document-create', [DocumentController::class, 'create'])
   ->name('document.create')->middleware('auth');
 Route::post('document-create', [DocumentController::class, 'store'])
   ->name('document.store')->middleware('auth');
-Route::put('document-edit/{article_id}', [DocumentController::class, 'update'])
+Route::put('document-edit/{document}', [DocumentController::class, 'update'])
   ->name('document.update')->middleware('auth');
 Route::delete('document-edit/{article}', [DocumentController::class, 'destroy'])
   ->name('document.delete')->middleware('auth');
