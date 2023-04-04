@@ -7,6 +7,7 @@ use App\Models\Format;
 use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
@@ -24,6 +25,8 @@ class DocumentController extends Controller
   }
 
 
+
+
   public function store(Request $request)
   {
     $uploadedFile = $request->file('document');
@@ -35,22 +38,8 @@ class DocumentController extends Controller
     $originalName = $uploadedFile->getClientOriginalName();
     $loggedUser = Auth::User()->id;
 
-    if ($request->language_id === 1) {
-      $title_en = $loggedUser . $request->title;
-      if ($request->title_alt) {
-        $title_fr = $loggedUser . $request->title_alt;
-      }
-    } else {
-      $title_fr = $loggedUser . $request->title;
-      if ($request->title_alt) {
-        $title_en = $loggedUser . $request->title_alt;
-      }
-    }
-
-    $title_en = $request->language_id === 1 ? ($loggedUser . $request->title) : ($request->title_alt ? ($loggedUser . $request->title_alt) : null);
-
-    $title_fr = $request->language_id !== 1 ? ($loggedUser . $request->title) : ($request->title_alt ? ($loggedUser . $request->title_alt) : null);
-
+    // Le nom est la concaténation de l'user id avec le titre qu'il a composé. Chaque utilisateur doit donc mettre des noms uniques
+    $title = $loggedUser . ($request->title_en ?? $request->title_fr);
 
     // $name = pathinfo($originalName, PATHINFO_FILENAME);
     $format = pathinfo($originalName, PATHINFO_EXTENSION);
@@ -64,27 +53,41 @@ class DocumentController extends Controller
 
     $request->validate([
       'document' => 'required',
-      'title' => 'required|unique:documents,title',
-      'title_alt' => 'unique:documents,title',
+      'title_en' => 'required_without:title_fr|unique:documents,title_en',
+      'title_fr' => 'required_without:title_en|unique:documents,title_fr'
     ]);
 
-    $uploadedFile->storeAs('uploads', ($title . '.' . $format), 'public');
+    $uploadedFile->storeAs('uploads', $title . '.' . $format, 'public');
 
     $document = Document::create([
-      'title' => $title,
+      'title_en' => $request->title_en,
+      'title_fr' => $request->title_fr,
       'user_id' => $loggedUser,
-      'path' => 'storage/app/public/uploads/' . $title . '.' . $format,
+      'path' => 'uploads/' . $title . '.' . $format,
       'format_id' => $format_id + 1,
       'language_id' => $request->language_id,
     ]);
 
-    return redirect(route('document.userDocument'))->withSuccess('message', 'Upload successful');
+    return redirect(route('document.userDocument'))->withSuccess(trans('lang.success'));
   }
 
-  public function userDocument()
+  public function userDocument(Request $request)
   {
-    $documents = Document::all();
+    $loggedUser = Auth::User()->id;
+    $documents = Document::where('user_id', $loggedUser)->paginate(20);
 
-    return view('document.userDocument', compact('formats', 'languages'));
+    $currentPageItems = $documents->items();
+
+    $pagination = $documents->appends($request->query());
+
+    $iconHtml = '<i class="fa-solid fa-xmark text-danger"></i>';
+
+    $url = Storage::disk('public')->url('uploads/file.pdf');
+
+    return view('document.userDocument', [
+      'documents' => $documents,
+      'items' => $currentPageItems,
+      'pagination' => $pagination,
+      'icon' => $iconHtml
+    ]);
   }
-}
