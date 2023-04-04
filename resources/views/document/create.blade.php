@@ -18,30 +18,25 @@
           @enderror
         </div>
 
+        @php
+          $lang_local = app()->getLocale();
+          $lang_alt = $lang_local === 'en' ? 'fr' : 'en';
+        @endphp
+
+        {{-- Primary title (according to current language rendering) --}}
         <div class="control-grup col-12">
-          <label for="title">@lang('lang.name')</label>
-          <input type="text" id="title" name="title" class="form-control" value="{{ old('title') }}" placeholder="@lang('lang.title_doc')" required>
-          @error('title')
+          <label for="title_{{ $lang_local }}">@lang('lang.local_name')</label>
+          <input type="text" id="title_{{ $lang_local }}" name="title_{{ $lang_local }}" class="form-control" value='{{ old("title_{$lang_local}") }}' placeholder="@lang('lang.title_doc')" required>
+          @error("title_{$lang_local}")
             <div class="alert alert-danger">{{ $message }}</div>
           @enderror
         </div>
 
+        {{-- Alternative title (opposite of current language rendering) --}}
         <div class="control-grup col-12">
-          <label for="language_id">@lang('lang.language')</label>
-          <select id="language_id" name="language_id" class="form-control" value="{{ old('language_id') }}" required>
-            @foreach ($languages as $language)
-              <option value="{{ $language->id }}">{{ $language->name }}</option>
-            @endforeach
-          </select>
-          @error('language_id')
-            <div class="alert alert-danger">{{ $message }}</div>
-          @enderror
-        </div>
-
-        <div class="control-grup col-12">
-          <label for="title">@lang('lang.name_alt')</label>
-          <input type="text" id="title_alt" name="title_alt" class="form-control" value="{{ old('title_alt') }}" placeholder="@lang('lang.optional')" required>
-          @error('title')
+          <label for="title_{{ $lang_alt }}">@lang('lang.name_alt')</label>
+          <input type="text" id="title_{{ $lang_alt }}" name="title_{{ $lang_alt }}" class="form-control" value='{{ old("title_{$lang_alt}") }}' placeholder="@lang('lang.optional')">
+          @error("title_{$lang_alt}")
             <div class="alert alert-danger">{{ $message }}</div>
           @enderror
         </div>
