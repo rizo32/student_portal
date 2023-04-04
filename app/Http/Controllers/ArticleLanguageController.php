@@ -47,7 +47,6 @@ class ArticleController extends Controller
 
     $iconHtml = '<i class="fa-solid fa-xmark text-danger"></i>';
 
-
     return view('article.userArticle', [
       'articles' => $articles,
       'items' => $currentPageItems,
@@ -201,7 +200,7 @@ class ArticleController extends Controller
       'body' => $request->body,
     ], ['article_id' => $article_id, 'language_id' => $language_id]);
 
-    return redirect(route('article.userArticle'))->withSuccess('Article mis à jour avec success');
+    return redirect(route('article.userArticle'))->withSuccess(trans('lang.success'));
   }
 
   /**
