@@ -8,9 +8,29 @@ use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class DocumentController extends Controller
 {
+    /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+   */
+  public function index(Request $request)
+  {
+    // Use eager loading to reduce the number of database queries
+    $documents = Document::paginate(20);
+
+    // Use the `items()` method to get the items for the current page
+    $currentPageItems = $documents->items();
+
+    // Use the `appends()` method to add the query string parameters to the pagination links
+    $pagination = $documents->appends($request->query());
+
+    return view('document.index', compact('documents', 'currentPageItems', 'pagination', 'request'));
+  }
+
   /**
    * Show the form for creating a new resource.
    *
@@ -18,24 +38,42 @@ class DocumentController extends Controller
    */
   public function create()
   {
-    $formats = Format::all();
-    $languages = Language::all();
+    return view('document.create');
+  }
 
-    return view('document.create', compact('formats', 'languages'));
+  public function edit(Document $document)
+  {
+    return view('document.edit', compact('document'));
+  }
+
+    /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \App\Models\Student  $blogPost
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function update(Request $request, Document $document)
+  {
+    $document->update([
+      'title_en' => $request->title_en,
+      'title_fr' => $request->title_fr
+    ]);
+
+    return redirect(route('document.userDocument', $document->id))->withSuccess(trans('lang.success'));
   }
 
   public function show(Document $document)
   {
-      $path = $document->path;
+    $path = $document->path;
 
-      if (!Storage::disk('public')->exists($path)) {
-          return redirect()->back()->withErrors(['message' => __('lang.file_not_found')]);
-      }
+    if (!Storage::disk('public')->exists($path)) {
+      return redirect()->back()->withErrors(['message' => __('lang.file_not_found')]);
+    }
 
-      // Open the file in the browser
-      return response()->file(storage_path('app/public/' . $path));
+    // Open the file in the browser
+    return response()->file(storage_path('app/public/' . $path));
   }
-
 
   public function store(Request $request)
   {
@@ -63,8 +101,8 @@ class DocumentController extends Controller
 
     $request->validate([
       'document' => 'required',
-      'title_en' => 'required_without:title_fr|unique:documents,title_en',
-      'title_fr' => 'required_without:title_en|unique:documents,title_fr'
+      'title_en' => 'nullable|required_without:title_fr|unique:documents,title_en',
+      'title_fr' => 'nullable|required_without:title_en|unique:documents,title_fr',
     ]);
 
     $uploadedFile->storeAs('uploads', $title . '.' . $format, 'public');
@@ -104,13 +142,13 @@ class DocumentController extends Controller
 
   public function download($document)
   {
-      $document = Document::findOrFail($document);
-      $path = $document->path;
-  
-      if (!Storage::disk('public')->exists($path)) {
-          return redirect()->back()->withErrors(['message' => __('lang.file_not_found')]);
-      }
-  
-      return Storage::disk('public')->download($path);
+    $document = Document::findOrFail($document);
+    $path = $document->path;
+
+    if (!Storage::disk('public')->exists($path)) {
+      return redirect()->back()->withErrors(['message' => __('lang.file_not_found')]);
+    }
+
+    return Storage::disk('public')->download($path);
   }
 }
