@@ -101,3 +101,16 @@ class DocumentController extends Controller
       'icon' => $iconHtml
     ]);
   }
+
+  public function download($document)
+  {
+      $document = Document::findOrFail($document);
+      $path = $document->path;
+  
+      if (!Storage::disk('public')->exists($path)) {
+          return redirect()->back()->withErrors(['message' => __('lang.file_not_found')]);
+      }
+  
+      return Storage::disk('public')->download($path);
+  }
+}
