@@ -26,6 +26,7 @@
       <thead class="table-primary">
         <tr>
           <th class="text-center text-dark">@lang('lang.title')</th>
+          <th class="text-center text-dark">@lang('lang.author')</th>
           <th class="text-center text-dark">@lang('lang.format')</th>
           <th class="text-center text-dark">@lang('lang.creation_date')</th>
           <th class="text-center text-dark">@lang('lang.modification_date')</th>
@@ -48,6 +49,11 @@
                 @else
                   {{ __('lang.no_title') }}
                 @endif
+              </a>
+            </td>
+            <td class="text-center">
+              <a href="{{ route('document.show', $document->id) }}" class="text-decoration-none link-light">
+                {{ $document->user->student->name }}
               </a>
             </td>
             <td class="text-center">
