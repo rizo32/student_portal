@@ -11,7 +11,7 @@
       </div>
       <div class="text-light d-flex flex-column gap-3">
         <div class="control-grup col-12">
-          <label for="document">@lang('lang.document')</label>
+          <label for="document">@lang('lang.document') (.zip, .pdf, .doc)</label>
           <input type="file" id="document" name="document" class="form-control" required>
           @error('format_error')
             <div class="alert alert-danger">{{ $errors->first('format_error') }}</div>
