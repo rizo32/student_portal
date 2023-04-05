@@ -150,4 +150,22 @@ class DocumentController extends Controller
 
     return Storage::disk('public')->download($path);
   }
+
+  public function destroy(Document $document)
+  {
+    // Check if the logged in user is the owner of the document
+    $loggedUser = Auth::User()->id;
+
+    if ($document->user_id != $loggedUser) {
+      return redirect()->back()->withErrors([__('lang.not_authorized')]);
+    }
+
+    // Delete the file from storage
+    Storage::disk('public')->delete($document->path);
+
+    // Delete the document from the database
+    $document->delete();
+
+    return redirect(route('document.userDocument'))->withSuccess(trans('lang.success'));
+  }
 }
