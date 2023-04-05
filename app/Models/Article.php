@@ -11,19 +11,13 @@ class Article extends Model
     public $timestamps = false;
 
     protected $fillable = [
-      // 'title',
-      // 'body',
-      // 'title_fr',
-      // 'body_fr',
       'user_id',
-      // 'language'
   ];
 
   public function user()
   {
     return $this->belongsTo(User::class, 'user_id');
   }
-
 
   public function language()
   {

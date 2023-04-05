@@ -70,16 +70,6 @@ class CustomAuthController extends Controller
     }
 
     return redirect()->back()->withErrors(trans('auth.password'))->withInput();
-
-    // if (!Auth::validate($credentials)):
-    //   return redirect()->back()->withErrors(trans('auth.password'))->withInput();
-    // endif;
-
-    // $user = Auth::getProvider()->retrieveByCredentials($credentials);
-
-    // Auth::login($user);
-
-    // return redirect()->intended(route('welcome'));
   }
 
   public function logout()

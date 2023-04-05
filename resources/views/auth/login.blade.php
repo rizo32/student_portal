@@ -36,7 +36,7 @@
         <label for="password">@lang('lang.password')</label>
         <input type="password" id="password" placeholder="mypassword" name="password" class="form-control" />
       </div>
-      <input class="form-control mt-3" type="submit" value=@lang('lang.login') />
+      <input class="form-control mt-3" type="submit" value="@lang('lang.login')" />
     </form>
   </div>
 

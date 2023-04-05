@@ -14,7 +14,6 @@ class City extends Model
     'name'
   ];
 
-  // Relationship to Student
   public function student()
   {
     return $this->hasMany(Student::class, 'user_id');

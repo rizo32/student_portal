@@ -14,7 +14,6 @@ class ArticleLanguage extends Model
 
   public $incrementing = false;
 
-
   protected $fillable = [
     'article_id',
     'language_id',

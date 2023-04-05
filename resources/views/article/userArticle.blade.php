@@ -92,7 +92,6 @@
     </table>
   </div>
 
-
   <div class="py-5">
     {{ $pagination->links('layouts.pagination') }}
   </div>

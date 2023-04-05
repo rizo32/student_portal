@@ -61,7 +61,6 @@
     </table>
   </div>
   <div class="py-5">
-    {{-- {{ $articles --}}
     {{ $pagination->links('layouts.pagination') }}
   </div>
 @endsection

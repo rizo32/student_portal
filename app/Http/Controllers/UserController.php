@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-
 class UserController extends Controller
 {
   /**
@@ -30,6 +29,7 @@ class UserController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
+  // J'utilise un ensemble de règle de validation dans http/Requests
   public function store(CreateStudentRequest $request)
   {
     // ensures that all operations are either committed or rolled back as a single unit of work
@@ -48,6 +48,7 @@ class UserController extends Controller
         'phone' => $request->phone
       ]);
 
+      // login automatique lors de l'inscription
       Auth::login($user);
 
       return redirect(route('welcome'))->withSuccess(
