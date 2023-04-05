@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateArticleRequest;
 use App\Models\Article;
 use App\Models\ArticleLanguage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\EditArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -71,21 +72,9 @@ class ArticleController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\RedirectResponse 
    */
-  public function store(Request $request)
+  public function store(CreateArticleRequest $request)
   {
     $loggedUser = Auth::User()->id;
-
-    // validate that at least one title is filled
-$request->validate([
-    'title_en' => 'required_without_all:title_fr',
-    'body_en' => 'required_if:title_en,!=,',
-    'title_fr' => 'required_without_all:title_en',
-    'body_fr' => 'required_if:title_fr,!=,',
-], [
-    'title_en.required_without_all' => __('validation.required', ['attribute' => __('lang.title')]),
-    'body_en.required_if' => __('validation.required', ['attribute' => __('lang.content')]),
-]);
-
 
     $article = Article::create([
       'user_id' => $loggedUser,
@@ -108,12 +97,6 @@ $request->validate([
         'article_id' => $article['id']
       ]);
     }
-
-    // $article = new Article;
-    // $article->fill($request->all());
-    // $article->user_id = $loggedUser;
-    // $article->save();
-
 
     return redirect(route('article.userArticle'));
   }
@@ -141,7 +124,6 @@ $request->validate([
   public function edit($article_id, $language_id)
   {
     // Find the ArticleLanguage model based on the article_id and language_id
-
     $articleLanguage = ArticleLanguage::where('article_id', $article_id)
       ->where('language_id', $language_id)
       ->first();
@@ -156,28 +138,10 @@ $request->validate([
    * @param  int  $id
    * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
    */
-  public function update(Request $request, $article_id, $language_id)
+  public function update(EditArticleRequest $request, $article_id, $language_id)
   {
-    $rules = [
-      'title' => 'required|max:255',
-      'body' => 'required',
-      'article_id' => [
-        'required',
-        Rule::unique('article_languages')->where(function ($query) use ($language_id) {
-          return $query->where('language_id', $language_id);
-        })->ignore($article_id, 'article_id'),
-      ],
-      'language_id' => 'required|exists:languages,id',
-    ];
-
-    $validatedData = $request->validate($rules);
-
     $articleLanguage = ArticleLanguage::where('article_id', $article_id)
       ->where('language_id', $language_id);
-    // ->firstOrFail();
-
-    // $articleLanguage->fill($request->only(['title', 'body']));
-
 
     $articleLanguage->update([
       'title' => $request->title,
