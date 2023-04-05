@@ -12,30 +12,37 @@
         </div>
       </div>
     @endif
-    <a href="{{ route('student.edit', $student->user_id) }}" class="text-decoration-none">
-      <table class="table table-dark table-striped table-hover">
-        <tr>
-          <td class="text-light"><strong>@lang('lang.address') : </strong> {!! $student->address !!}</td>
-        </tr>
-        <tr>
-          <td class="text-light"><strong>@lang('lang.phone') : </strong> {{ $student->phone }}</td>
-        </tr>
-        <tr>
-          <td class="text-light"><strong>@lang('lang.email') : </strong> {{ $student->user->email }}</td>
-        </tr>
-        <tr>
-          <td class="text-light"><strong>@lang('lang.birthday') : </strong> {{ $student->birthday }}</td>
-          </p>
-        <tr>
-          <td class="text-light"><strong>@lang('lang.city') : </strong> {{ $student->city->name }}</td>
-        </tr>
-      </table>
-    </a>
+
+    {{-- Seulement l'étudiant connecté peut se modifier --}}
+    @if ($loggedUser == $student->user_id)
+      <a href="{{ route('student.edit', $student->user_id) }}" class="text-decoration-none">
+    @endif
+    <table class="table table-dark table-striped table-hover">
+      <tr>
+        <td class="text-light"><strong>@lang('lang.address') : </strong> {!! $student->address !!}</td>
+      </tr>
+      <tr>
+        <td class="text-light"><strong>@lang('lang.phone') : </strong> {{ $student->phone }}</td>
+      </tr>
+      <tr>
+        <td class="text-light"><strong>@lang('lang.email') : </strong> {{ $student->user->email }}</td>
+      </tr>
+      <tr>
+        <td class="text-light"><strong>@lang('lang.birthday') : </strong> {{ $student->birthday }}</td>
+        </p>
+      <tr>
+        <td class="text-light"><strong>@lang('lang.city') : </strong> {{ $student->city->name }}</td>
+      </tr>
+    </table>
+    @if ($loggedUser == $student->user_id)
+      </a>
+    @endif
     <div class="d-flex justify-content-end gap-2">
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        @lang('lang.delete')
-      </button>
+      @if ($loggedUser == $student->user_id)
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          @lang('lang.delete')
+        </button>
+      @endif
       <a href="{{ route('student.index') }}" class="btn btn-secondary link-dark">@lang('lang.back')</a>
     </div>
   </div>
