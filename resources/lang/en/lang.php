@@ -76,6 +76,7 @@ return [
   'name_alt' => 'Name (in french)',
   'no_title' => 'Undefined in this language',
   'file_not_found' => 'The found was not found',
+  'confirm_document_delete' => 'Are you sure you want to definitively delete your document',
 
   // errors
   '404_message' => '404 Error: Page Not Found',
@@ -84,4 +85,5 @@ return [
   'server_error' => 'Server Error',
   '500_message' => '500 Error: Server Error',
   '500_description' => 'There was an error processing your request. Please try again later.',
+  'not_authorized' => "You do not have the authorisation to proceed",
 ];

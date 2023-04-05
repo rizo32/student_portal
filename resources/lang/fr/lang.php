@@ -76,6 +76,7 @@ return [
   'name_alt' => 'Nom (en anglais',
   'no_title' => 'Non défini dans cette langue',
   'file_not_found' => "Le fichier demandé n'a pas été trouvé",
+  'confirm_document_delete' => 'Êtes-vous certain de vouloir supprimer ce document',
 
   // errors
   '404_message' => "Erreur 404: La page n'est pas disponible",
@@ -84,4 +85,5 @@ return [
   'server_error' => 'Erreur de serveur',
   '500_message' => 'Erreur 500: Erreur de serveur',
   '500_description' => 'Il y avait un problème lors du traitement de votre requête. Veuillez rééssayer.',
+  'not_authorized' => "Vous n'êtes pas autorisé à faire cette action",
 ];
