@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateDocumentRequest;
 use App\Models\Document;
-use App\Models\Format;
-use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 
 class DocumentController extends Controller
 {
-    /**
+  /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -46,7 +44,7 @@ class DocumentController extends Controller
     return view('document.edit', compact('document'));
   }
 
-    /**
+  /**
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
@@ -75,7 +73,7 @@ class DocumentController extends Controller
     return response()->file(storage_path('app/public/' . $path));
   }
 
-  public function store(Request $request)
+  public function store(CreateDocumentRequest $request)
   {
     $uploadedFile = $request->file('document');
 
@@ -84,39 +82,40 @@ class DocumentController extends Controller
     }
 
     $originalName = $uploadedFile->getClientOriginalName();
+
     $loggedUser = Auth::User()->id;
 
     // Le nom est la concaténation de l'user id avec le titre qu'il a composé. Chaque utilisateur doit donc mettre des noms uniques
     $title = $loggedUser . ($request->title_en ?? $request->title_fr);
 
-    // $name = pathinfo($originalName, PATHINFO_FILENAME);
-    $format = pathinfo($originalName, PATHINFO_EXTENSION);
+    [$path, $format_id] = $this->upload($uploadedFile, $title);
+
+    Document::create([
+      'title_en' => $request->title_en,
+      'title_fr' => $request->title_fr,
+      'user_id' => $loggedUser,
+      'path' => $path,
+      'format_id' => $format_id,
+      'language_id' => $request->language_id,
+    ]);
+
+    return redirect(route('document.userDocument'))->withSuccess(trans('lang.success'));
+  }
+
+  private function upload($uploadedFile, $title)
+  {
+    $format = $uploadedFile->getClientOriginalExtension();
     $permitted_formats = array('zip', 'pdf', 'doc');
 
-    $format_id = array_search($format, $permitted_formats);
+    $format_id = array_search($format, $permitted_formats) + 1;
 
     if ($format_id === false) {
       return redirect()->back()->withInput()->withErrors(['format_error' => __('lang.bad_format')]);
     }
 
-    $request->validate([
-      'document' => 'required',
-      'title_en' => 'nullable|required_without:title_fr|unique:documents,title_en',
-      'title_fr' => 'nullable|required_without:title_en|unique:documents,title_fr',
-    ]);
+    $path = $uploadedFile->storeAs('uploads', $title . '.' . $format, 'public');
 
-    $uploadedFile->storeAs('uploads', $title . '.' . $format, 'public');
-
-    $document = Document::create([
-      'title_en' => $request->title_en,
-      'title_fr' => $request->title_fr,
-      'user_id' => $loggedUser,
-      'path' => 'uploads/' . $title . '.' . $format,
-      'format_id' => $format_id + 1,
-      'language_id' => $request->language_id,
-    ]);
-
-    return redirect(route('document.userDocument'))->withSuccess(trans('lang.success'));
+    return [$path, $format_id];
   }
 
   public function userDocument(Request $request)
