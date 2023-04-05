@@ -28,6 +28,7 @@ class EditStudentRequest extends FormRequest
       'address' => 'required|max:255',
       'phone' => 'required|numeric|regex:/^[0-9]{10}$/',
       'birthday' => 'required|date',
+      'city_id' => 'required|exists:cities,id',
     ];
   }
 }
