@@ -6,6 +6,7 @@ use App\Http\Requests\EditStudentRequest;
 use App\Models\Student;
 use App\Models\City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -39,11 +40,11 @@ class StudentController extends Controller
    */
   public function show(Student $student)
   {
+    $loggedUser = Auth::User()->id;
+
     $student->load('city', 'user');
 
-    return view('student.show', [
-      'student' => $student,
-    ]);
+    return view('student.show', compact('student', 'loggedUser'));
   }
 
   /**
@@ -85,13 +86,14 @@ class StudentController extends Controller
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Models\Student  $blogPost
+   * @param  \App\Models\Student  $student
    * @return \Illuminate\Http\RedirectResponse
    */
   public function destroy(Student $student)
   {
     $student->delete();
+    Auth::logout();
 
-    return redirect(route('student.index'));
+    return redirect(route('user.create'));
   }
 }
